@@ -1,0 +1,31 @@
+{% assign title = page.title | default: page.title_html | default: layout.title | default: layout.title_html %}
+{% assign parent_title = page.parent_title | default: layout.parent_title %}
+{% assign parent_link = page.parent_link | default: layout.parent_link %}
+{% if title or parent_title %}
+  <header>
+    {% if parent_title %}
+      <p class="section-title">
+        {% if parent_link %}
+          <a href="{{ parent_link }}">{{ parent_title }}</a>
+        {% else %}
+          {{ parent_title }}
+        {% endif %}
+      </p>
+    {% endif %}
+
+    {% if title %}
+      <h1>{{ title }}</h1>
+    {% endif %}
+
+    {% if page.show_header_meta and page.date or page.version %}
+      <div class="meta">
+        {% if page.date %}
+          <p>{{ page.date | date: '%B %d, %Y' }}
+        {% endif %}
+        {% if page.version %}
+          <p>Version: {{ page.version }}
+        {% endif %}
+      </div>
+    {% endif %}
+  </header>
+{% endif %}

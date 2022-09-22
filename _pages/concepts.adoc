@@ -1,0 +1,16 @@
+---
+layout: base-page
+permalink: "/concepts/index.html"
+nav_items: [home, about, stats, posts, feedback, registers]
+bodyClass: concepts
+title: All Concepts
+---
+:page-liquid:
+
+The concepts below are sorted by term name, alphabetically, in a case-insensitive way.
+
+{% assign sorted_concepts = site.concepts | sort_natural: "term" -%}
+
+++++
+{% include concepts-list.html concepts=sorted_concepts %}
+++++

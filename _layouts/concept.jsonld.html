@@ -1,0 +1,151 @@
+---
+layout: null
+---
+{%- assign concept = page["eng"] -%}
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "format": "http://purl.org/dc/terms/format",
+    "dateAccepted": "http://purl.org/dc/terms/dateAccepted",
+    "modified": "http://purl.org/dc/terms/modified",
+    "created": "http://purl.org/dc/terms/created",
+    "source": "http://purl.org/dc/terms/source"
+  },
+
+  "@id": "{{ page.url }}",
+  "@type": "skos:Concept",
+  "format": "linked-data-api",
+  "skos:notation": "{{ page.termid }}",
+
+  "skos:prefLabel": [
+    {%- for lang in site.geolexica.term_languages -%}
+    {%- assign localized_term = page[lang] -%}
+    {%- if localized_term.terms.size > 0 -%}
+    {
+      "@language": "{{ site.data.lang[lang].iso-639-1 }}",
+      "@value": {{ localized_term.terms.first.designation | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {%- endif -%}
+    {%- endfor -%}
+  ],
+
+  "skos:altLabel": [
+    {%- for lang in site.geolexica.term_languages -%}
+    {%- assign outer_forloop = forloop -%}
+    {%- assign localized_term = page[lang] -%}
+    {%- for term in localized_term.terms -%}
+    {%- unless forloop.first -%}
+    {
+      "@language": "{{ site.data.lang[lang].iso-639-1 }}",
+      "@value": {{ term.designation | jsonify }}
+    }{% unless outer_forloop.last and forloop.last %},{% endunless %}
+    {%- endunless -%}
+    {%- endfor -%}
+    {%- endfor -%}
+  ],
+
+  "skos:definition": [
+    {%- for lang in site.geolexica.term_languages -%}
+    {%- assign localized_term = page[lang] -%}
+    {%- if localized_term.definition -%}
+    {%- for definition in localized_term.definition -%}
+    {
+      "@language": "{{ site.data.lang[lang].iso-639-1 }}",
+      "@value": {{ definition["content"] | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+    {%- endif -%}
+    {%- endfor -%}
+  ],
+
+  {% for date in concept.dates -%}
+    "date{{ date.type | capitalize }}": "{{ date.date | date: "%F" }}",
+  {%- endfor -%}
+
+  {% if concept.notes -%}
+  "notes": {
+    {%- for lang in site.geolexica.term_languages -%}
+    {%- assign localized_term = page[lang] -%}
+    {%- if localized_term.notes.size > 0 -%}
+    "{{ lang }}": [
+      {%- for note in localized_term.notes -%}
+      {%- assign notenum = "" -%}
+      {%- if localized_term.notes.size > 1 -%}
+      {%- assign notenum = " " | append: forloop.index -%}
+      {
+        "note-id": {{ notenum }},
+        "note": {
+          "@language": "{{ site.data.lang[lang].iso-639-1 }}",
+          "@type": "skos:note",
+          {% if lang != "eng" and note == concept.notes[forloop.index0] -%}
+          "@value": "notTranslated",
+          {% else -%}
+          "@value": {{ note["content"] | jsonify }}
+          {% endif -%}
+        }
+      }{% unless forloop.last %},{% endunless %}
+      {%- endif -%}
+      {%- endfor -%}
+    ]{% unless forloop.last %},{% endunless %}
+    {%- endif -%}
+    {%- endfor -%}
+  },
+  {%- endif -%}
+
+  {% if concept.examples %}
+  "examples": {
+    {%- for lang in site.geolexica.term_languages -%}
+    {%- assign localized_term = page[lang] -%}
+    {%- if localized_term.examples.size > 0 -%}
+    "{{ lang }}": [
+      {%- for example in localized_term.examples -%}
+      {%- assign examplenum = "" -%}
+      {%- if localized_term.examples.size > 1 -%}
+      {%- assign examplenum = " " | append: forloop.index -%}
+      {
+        "example-id": {{ examplenum }},
+        "example": {
+          "@language": "{{ site.data.lang[lang].iso-639-1 }}",
+          "@type": "skos:example",
+          {%- if lang != "eng" and example == concept.examples[forloop.index0] -%}
+          "@value": "notTranslated",
+          {%- else -%}
+          "@value": {{ example["content"] | jsonify }}
+          {%- endif -%}
+        }
+      }{% unless forloop.last %},{% endunless %}
+      {%- endif -%}
+      {%- endfor -%}
+    ]{% unless forloop.last %},{% endunless %}
+    {%- endif -%}
+    {%- endfor -%}
+  },
+  {% endif %}
+
+  {%- assign authoritative_source = concept.sources | get_authoritative -%}
+  {%- if authoritative_source -%}
+    "source": {
+      {%- if authoritative_source.link -%}
+        "link": "{{ authoritative_source.link }}",
+      {%- endif -%}
+      {%- if authoritative_source.clause -%}
+        "clause": "{{ authoritative_source.clause }}",
+      {%- endif -%}
+        "ref": "{{ authoritative_source.ref }}"
+    },
+  {%- endif -%}
+
+  {%- if concept.entry_status -%}
+  "status": {
+    "@value": {{ concept.entry_status | jsonify }}
+  },
+  {%- endif -%}
+
+  {%- if concept.terms.first.normative_status -%}
+  "classification": {
+    "@value": {{ concept.terms.first.normative_status | jsonify }}
+  },
+  {%- endif -%}
+
+  "uri": "{{ page.url }}"
+}

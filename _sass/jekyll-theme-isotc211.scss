@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css?family=Tienne:400,700');
+
+$bodyFontFamily: Helvetica, sans-serif;
+$bigscreenBreakpoint: 900px;
+$widescreenBreakpoint: 1200px;
+$logoSize: 100px;
+$logoOffset: $logoSize + 12px;
+
+$isoTCColor: #0f6db3;
+$textColor: black;
+
+$warningColor: red;
+$importantColor: orange;
+$accentColor: $isoTCColor;
+
+$codeListingBorderColor: lighten($textColor, 70);
+$codeListingBackgroundColor: rgba($textColor, 0.03);
+
+$mainShadowColor: rgba(black, 0.4);
+$headerFooterBackgroundColor: rgba(black, 0.05);
+$mainSectionBackgroundColor: rgba(white, 0.8);
+
+$linkColor: $isoTCColor;
+$linkColorInverse: white;
+
+$stripeWidth: 30px;
+
+$homeSectionItemSidePadding: 1em;
+
+@mixin titleFontFamily($useBold: false) {
+  font-family: 'Tienne', Georgia, serif;
+
+  @if $useBold == true {
+    font-weight: 700;
+  } @else {
+    font-weight: 400;
+  }
+}
+
+@import 'normalize';
+
+a {
+  &:link, &:visited, &:hover {
+    color: inherit;
+  }
+}
+main a {
+  &:link, &:visited, &:hover {
+    color: $linkColor;
+  }
+}
+
+input, textarea, button {
+  font-size: inherit;
+  font-family: inherit;
+}
+
+html {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+}
+
+.section-title {
+  font-size: 18px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: relative;
+}
+
+@import 'adoc-markup';
+@import 'offsets';
+@import 'main';
+@import 'expandable-nav';
+@import 'home';
+@import 'post';
+@import 'posts';
+@import 'legacy-crossbrowser';
+
+body.resource {
+  max-height: 100vh;
+
+  > main {
+    flex: 1 1 auto;
+    padding-top: 1em;
+    overflow: hidden;
+
+    > header h1 {
+      display: none;
+    }
+  }
+
+  .two-pane-viewer {
+    display: flex;
+    flex-flow: row nowrap;
+    overflow: hidden;
+    width: 100%;
+    flex: 1;
+
+    .viewer {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-flow: row nowrap;
+      padding: 1em;
+      margin: 0 1em;
+      border-radius: 1em;
+      background: whiteSmoke;
+
+      iframe {
+        flex: 1;
+        border: 0;
+      }
+    }
+
+    // Fix style clashes with Blueprint
+    .bp3-tree {
+      font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Open Sans", "Helvetica Neue", "Icons16", sans-serif
+    }
+
+    .browser {
+      max-width: 300px;
+      font-size: 84%;
+      box-shadow: none;
+      overflow-y: scroll;
+      padding-top: 1em;
+
+      .bp3-tree-node-content:hover {
+        background-color: inherit;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        border: 0;
+
+        &.selected {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

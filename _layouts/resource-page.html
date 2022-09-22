@@ -1,0 +1,25 @@
+---
+layout: base-page
+bodyClass: resource
+
+extra_stylesheets:
+  - href: https://unpkg.com/normalize.css@^7.0.0
+  - href: https://unpkg.com/@blueprintjs/icons@^3.4.0/lib/css/blueprint-icons.css
+  - href: https://unpkg.com/@blueprintjs/core@^3.10.0/lib/css/blueprint.css
+---
+
+{{ content }}
+
+<div class="two-pane-viewer">
+  <div class="browser bp3-tree bp3-elevation-0">
+    <ul class="bp3-tree-node-list bp3-tree-root">
+      {% include resource-tree-item.html data=page.contents.data children=page.contents.children level=0 %}
+    </ul>
+  </div>
+
+  <div class="viewer">
+    <iframe src="{{ "/assets/resource-viewer-placeholder.html" | relative_url }}"></iframe>
+  </div>
+</div>
+
+<script src="{{ "/assets/js/resource-browser.js" | relative_url }}"></script>

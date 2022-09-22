@@ -1,0 +1,417 @@
+a {
+  text-decoration: none;
+  color: $textColor;
+}
+
+body > main a {
+  color: $linkColor;
+  border-bottom: 1px solid $linkColor;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &[rel=external] {
+    border-bottom-style: dotted;
+    &:link, &:hover, &:focus, &:active {
+      .ico-ext {
+        font-size: 50%;
+        vertical-align: text-top;
+        position: relative;
+        left: .15em;
+      }
+    }
+  }
+}
+
+// Main layout
+// ===========
+
+body {
+  font-size: 16px;
+  line-height: 1.15;
+}
+
+body {
+  font-family: $bodyFontFamily;
+}
+
+body > main {
+  font-size: 18px;
+  @include asciidoc-markup();
+}
+
+body > header,
+body > main > section,
+body > main > .section {
+  padding-top: 1em;
+
+  > h2 {
+    @extend .section-title;
+  }
+}
+
+body > main,
+body.home > main > section,
+body.home > main > .section {
+  background: $mainSectionBackgroundColor;
+}
+
+body.home > main {
+  background: transparent;
+}
+
+body {
+  $footerLogoSize: 60px;
+  $footerH: $footerLogoSize + 20px;
+  $footerPoweredByLogoWidth: 100px;
+
+  flex: 1;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  margin-bottom: -$footerH;
+
+  background: linear-gradient(90deg, $isoTCColor $stripeWidth, transparent 20px);
+
+  > .awards {
+    color: grey;
+    margin: 0;
+    padding: 1em 15vw;
+    background: rgba(black, 0.1);
+    font-size: 80%;
+
+    .icon {
+      margin-right: 1em;
+    }
+  }
+
+  > footer {
+    flex-shrink: 0;
+    font-size: 90%;
+    line-height: 1.6;
+
+    background: $headerFooterBackgroundColor;
+    box-shadow: 0 10px 20px -20px $mainShadowColor inset;
+
+    padding-top: 1em;
+
+    .logo {
+      width: $footerLogoSize + 12px;
+      margin-left: 0;
+      display: inline-block;
+
+      img {
+        width: $footerLogoSize;
+        height: $footerLogoSize;
+        vertical-align: middle;
+      }
+    }
+
+    .powered-by {
+      flex: 1;
+      width: $logoOffset;
+
+      .powered-by-text {
+        font-size: 0.5em;
+        text-transform: uppercase;
+        font-weight: 600;
+        display: block;
+      }
+
+      img {
+        width: $footerPoweredByLogoWidth;
+        display: block;
+      }
+    }
+
+    .legal {
+      white-space: nowrap;
+      display: inline-block;
+    }
+
+    ul[role=nav] {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-flow: row wrap;
+
+      li {
+        margin-left: 1em;
+        white-space: nowrap;
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+    }
+
+    @media screen and (min-width: $bigscreenBreakpoint) {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: flex-end;
+
+      height: $footerH;
+      padding-top: 0;
+
+      .powered-by {
+        margin-left: 2em;
+      }
+    }
+  }
+
+  > header {
+    flex-shrink: 0;
+    padding-top: .5em;
+
+    background: $headerFooterBackgroundColor;
+    box-shadow: 0 -10px 20px -20px $mainShadowColor inset;
+
+    .site-headline {
+      margin: 0;
+      padding: 0;
+      font-size: 100%;
+      font-weight: normal;
+
+      > .parent-org-reference {
+        display: none;
+
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        width: $logoOffset;
+
+        .logo-link {
+          height: $logoOffset;
+          width: $logoOffset;
+          display: flex;
+          flex-flow: column nowrap;
+          align-items: center;
+          justify-content: center;
+
+          img {
+            display: block;
+            height: $logoSize;
+            width: $logoSize;
+          }
+        }
+      }
+      .site-title {
+        flex: 1;
+        display: flex;
+        flex-flow: column nowrap;
+
+        .title {
+          font-size: 150%;
+          font-weight: normal;
+          margin: 0;
+          margin-bottom: 1em;
+          margin-left: -.12em;  // Visual alignment of capital G
+          letter-spacing: -.025em;
+        }
+
+        .committee-widget {
+          font-size: 80%;
+          line-height: 1.5;
+          margin: 0;
+          padding-bottom: 1.5em;
+
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
+
+          @media screen and (min-width: $bigscreenBreakpoint) {
+            margin-top: 3.3em;
+          }
+
+          .widget-group {
+            display: flex;
+            flex-flow: row wrap;
+            margin-bottom: 3px;
+
+            @media screen and (min-width: $bigscreenBreakpoint) {
+              flex-flow: row nowrap;
+              margin-bottom: 0;
+            }
+          }
+
+          .widget-item {
+            margin-right: 2px;
+            margin-bottom: 2px;
+            padding: .3em .6em;
+            box-shadow: 1px 1px 2px rgba(black, 0.1);
+            border-width: 1px;
+            border-style: solid;
+
+            background: lighten(desaturate($isoTCColor, 50), 20);
+            border-color: lighten(desaturate($isoTCColor, 50), 20);
+            color: white;
+
+            box-sizing: border-box;
+
+            @media screen and (max-width: $bigscreenBreakpoint - 1) {
+              margin-right: -1px;
+              margin-bottom: -1px;
+              flex: 1;
+            }
+          }
+
+          .committee-id {
+            padding-left: .7em;
+            // Corrects visual padding inconsistency of unclear origin
+
+            white-space: nowrap;
+            background: black;
+            border-color: black;
+            font-weight: bold;
+            color: white;
+          }
+
+          .committee-menu {
+            flex-flow: row wrap;
+
+            .widget-item {
+              @media screen and (max-width: $bigscreenBreakpoint - 1) {
+                flex-basis: 50%;
+                &.home {
+                  flex: 0;
+                  &:only-child {
+                    flex: 1;
+                  }
+                }
+              }
+            }
+          }
+
+          .widget-item.home {
+            white-space: nowrap;
+            .fa-home {
+              margin-right: .25em;
+            }
+          }
+
+          .widget-item.parent-org-reference {
+            display: inline;
+            background: #e30b1f;
+            border-color: #e30b1f;
+            font-weight: bold;
+
+            @media screen and (min-width: $bigscreenBreakpoint) {
+              display: none;
+            }
+          }
+
+          .committee-name {
+            background: $isoTCColor;
+            border-color: $isoTCColor;
+            color: white;
+          }
+        }
+      }
+
+      @media screen and (min-width: $bigscreenBreakpoint) {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-start;
+
+        > .parent-org-reference {
+          display: flex;
+        }
+      }
+
+      @media screen and (max-width: $bigscreenBreakpoint - 1) {
+        .parent-org-reference .logo-link img {
+          visibility: hidden;
+        }
+      }
+    }
+
+    &.brand {
+      .site-headline {
+        .title {
+          font-size: 220%;
+          margin-bottom: .5em;
+        }
+      }
+    }
+  }
+
+  > header > nav.priority-nav {
+    ul {
+      padding: 0;
+      margin: 0;
+      margin-right: -$logoOffset;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      padding-bottom: 1em;
+
+      @media screen and (min-width: $bigscreenBreakpoint) {
+        margin-left: $logoOffset;
+        margin-right: 0;
+      }
+
+      @media screen and (max-width: $bigscreenBreakpoint - 1) {
+        display: none;
+      }
+
+      li {
+        display: inline;
+        margin-right: 1em;
+        overflow: hidden;
+
+        a {
+          text-transform: uppercase;
+          font-size: 80%;
+          letter-spacing: -.01em;
+        }
+      }
+    }
+  }
+
+  > header > nav.expandable-nav {
+    display: none;
+  }
+
+  > main {
+    flex: 1 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    line-height: 1.6;
+    padding-bottom: 1em;
+
+    position: relative;
+
+    > header {
+      p.section-title {
+        margin: 0;
+        @extend .section-title;
+        transform-origin: top left;
+        transform: rotate(-90deg) translateX(-100%);
+        position: absolute;
+        color: $isoTCColor;
+        font-size: 80%;
+        top: 3em;
+        left: .3em;
+      }
+      h1 {
+        margin-bottom: 0;
+        font-weight: normal;
+        font-size: 200%;
+      }
+      .meta {
+        color: lighten($textColor, 50);
+        margin-bottom: 2em;
+      }
+    }
+
+    .lead {
+      background-color: rgba(0, 0, 0, 0.05);
+      font-size: 120%;
+      margin-bottom: 1em;
+    }
+  }
+}

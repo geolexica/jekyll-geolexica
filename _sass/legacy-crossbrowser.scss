@@ -1,0 +1,67 @@
+// Layout workaround without using Flexbox for IE 10 and below
+
+@media screen and (min-width:0\0) {
+  body>header {
+    margin: 0;
+    padding: 0;
+    padding-left: 15%;
+    padding-top: 12px;
+  }
+
+  body>header .site-headline .site-title .committee-widget {
+    font-size: 95%;
+  }
+
+  body>header .site-headline .site-title .title {
+    display: block;
+    margin-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  body>main {
+    display: block;
+  }
+
+  body.home>main>.news .items {
+    padding: 0;
+    margin: 0;
+    margin-left: 15%;
+    width: 75%;
+  }
+
+  body.home>main>.news .news-item-card {
+    display: block;
+    margin-top: 18px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+
+  body.home>main>.news .items .news-item-card:first-child {
+    margin-left: 0;
+  }
+
+  body.home>main>.news .news-item-card.news-item--with-illustration {
+    min-height: 208px;
+  }
+
+  body.home>main>.news {
+    clear: both;
+    display: block;
+  }
+
+  body.home>main>.news .items {
+    padding-bottom: 18px;
+  }
+
+  body>footer {
+    padding-top: 8px;
+  }
+
+  body>footer ul[role="nav"] li {
+    display: inline-block;
+  }
+
+  body>footer .powered-by {
+    float: right
+  }
+}

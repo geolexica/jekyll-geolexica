@@ -1,0 +1,23 @@
+<div class="all-concepts">
+  <table>
+    <thead>
+      <tr>
+        <th class="field-termid">Term ID
+        <th class="field-term">Term
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for concept in include.concepts %}
+        <tr>
+          <td class="field-termid">
+            <a href="{{ concept.url | relative_url }}">{{ concept.termid }}</a>
+          </td>
+          <td class="field-term">
+            <a href="{{ concept.url | relative_url }}">{{ concept.term }}</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

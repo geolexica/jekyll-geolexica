@@ -1,0 +1,44 @@
+<span class="committee-widget">
+  <span class="widget-group">
+    {%- if site.committee.parent_org_name %}
+    <span class="widget-item parent-org-reference">
+      {{ site.committee.parent_org_name }}
+    </span>
+    {%- endif %}
+    {%- if site.committee.identifier %}
+    <span class="widget-item committee-id">
+      {{ site.committee.identifier }}
+    </span>
+    {%- endif %}
+    {%- if site.committee.name %}
+    <span class="widget-item committee-name">
+      {{ site.committee.name }}
+    </span>
+    {%- endif %}
+
+    {% if page.layout == "home" and site.always_show_committee_link_on_landing and site.committee.home %}
+      <a href="{{ site.committee.home }}" class="widget-item home">
+        <i class="fas fa-home"></i>
+        Committee site
+      </a>
+    {% endif %}
+  </span>
+
+  {% if site.committee.home or site.committee.links %}
+    <span class="widget-group committee-menu">
+      {% unless page.layout == "home" and site.always_show_committee_link_on_landing and site.committee.home %}
+        <a href="{{ site.committee.home }}" class="widget-item home">
+          <i class="fas fa-home"></i>
+          Committee site
+        </a>
+      {% endunless %}
+      {% if site.committee.links %}
+        {% for link in site.committee.links %}
+          <a href="{{ link.url }}" class="widget-item">
+            {{ link.title }}
+          </a>
+        {% endfor %}
+      {% endif %}
+    </span>
+  {% endif %}
+</span>

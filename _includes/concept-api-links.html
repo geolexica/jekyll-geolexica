@@ -1,0 +1,39 @@
+{%- assign json_url = page.representations.json.url -%}
+{%- if json_url %}
+<section class="field json">
+  <p class="field-name">JSON</p>
+  <p class="field-value"><a href="{{ json_url }}">{{ json_url }}</a></p>
+</section>
+{% endif -%}
+
+{%- assign yaml_url = page.representations.yaml.url -%}
+{%- if yaml_url %}
+<section class="field yaml">
+  <p class="field-name">YAML</p>
+  <p class="field-value"><a href="{{ yaml_url }}">{{ yaml_url }}</a></p>
+</section>
+{% endif -%}
+
+{%- assign json_url = page.representations.jsonld.url -%}
+{%- if json_url %}
+<section class="field json">
+  <p class="field-name">SKOS in JSON-LD</p>
+  <p class="field-value"><a href="{{ json_url }}">{{ json_url }}</a></p>
+</section>
+{% endif -%}
+
+{%- assign ttl_url = page.representations.turtle.url -%}
+{%- if ttl_url %}
+<section class="field ttl">
+  <p class="field-name">SKOS in RDF</p>
+  <p class="field-value"><a href="{{ ttl_url }}">{{ ttl_url }}</a></p>
+</section>
+{% endif -%}
+
+{%- assign tbx_url = page.representations.tbx.url -%}
+{%- if tbx_url %}
+<section class="field tbx">
+  <p class="field-name">TBX-ISO-TML</p>
+  <p class="field-value"><a href="{{ tbx_url }}">{{ tbx_url }}</a></p>
+</section>
+{% endif -%}

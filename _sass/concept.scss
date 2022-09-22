@@ -1,0 +1,216 @@
+body.concept {
+  > main > header h2 {
+    @extend .section-title;
+
+    .term-name {
+      @include titleFontFamily(false);
+      font-size: 160%;
+      display: block;
+      text-transform: none;
+      margin-top: .5em;
+
+      .q-open {
+        margin-left: -.4em;
+      }
+    }
+  }
+
+  .field {
+    padding-bottom: 1em;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+
+    .field-name {
+      margin: 0 1em 0 0;
+      font-size: 18px;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: unset;
+      flex-shrink: 0;
+
+      &.field-name-language {
+        text-transform: none;
+      }
+
+      @media screen and (min-width: $bigscreenBreakpoint) {
+        margin: 0;
+        text-align: center;
+      }
+    }
+
+    .header-term-id {
+        display: flex;
+        width: 15em;
+    }
+
+    .header-source {
+        display: flex;
+    }
+
+    .abbrev {
+    }
+
+    p.field-value {
+      // Single-paragraph
+      margin: 0;
+    }
+
+    div.field-value {
+      // Multi-paragraph
+    	> :first-child {
+        margin-top: 0;
+      }
+      .warning {
+        color: red;
+        font-style: italic;
+      }
+    }
+
+    ul.labels {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-style: italic;
+
+      li {
+        display: inline;
+        margin: 0;
+        padding: 0;
+        color: gray;
+
+        &:after {
+          content: ", ";
+        }
+        &:last-child:after {
+          content: "";
+          margin-left: 0;
+        }
+      }
+    }
+
+    dl.review {
+      margin: 0;
+      padding: 0;
+      font-style: italic;
+      color: gray;
+      padding-left: 20px;
+      font-size: 14px;
+
+      dt, dd {
+        display: inline;
+        margin: 0;
+        padding: 0;
+      }
+
+      .review-info {
+        /* TODO */
+      }
+
+    }
+
+  }
+
+  section.field.ref {
+    flex-wrap: wrap;
+  }
+
+  #engTermCopy {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width:32px;height:32px"><path d="M0 0v426.7h149.3V384H42.7V42.7h256V64h42.7V0H0zm170.7 85.3V512H512V85.3H170.7zm42.6 42.7h256v341.3h-256V128z"></path></svg>');
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 32px;
+    min-width: 32px;
+    padding-top: 32px;
+    margin-left: auto;
+    line-height: 1em;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    border-bottom: none;
+    color: #000;
+  };
+
+  #engTermCopy:active {
+    opacity: 0.6;
+  }
+
+  .margin-x-0 {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  article {
+    border-top: 2px solid #f0f0f0;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    @media screen and (max-width: $bigscreenBreakpoint - 1) {
+      &.field {
+        display: block;
+      }
+    }
+
+    h3 {
+      @include titleFontFamily(true);
+      font-size: 100%;
+      line-height: 1.2;
+    }
+
+    .heading {
+      @include titleFontFamily(true);
+      font-size: 100%;
+      line-height: 1.2;
+    }
+
+    &.lang-ara {
+      flex-direction: row-reverse;
+      .localized {
+        direction: rtl;
+      }
+    }
+
+    &.status-valid {
+    }
+    &.status-notValid {
+      color: red;
+      opacity: 0.5;
+    }
+    &.status-retired {
+      color: orange;
+      opacity: 0.5;
+    }
+    &.status-superseded {
+      color: gray;
+      opacity: 0.5;
+    }
+  }
+}
+
+body.concept > main {
+  padding-top: 1em;
+
+  > header h2 {
+    margin-left: $sideOffsetBase;
+    margin-right: $sideOffsetBase;
+  }
+  .field {
+    margin: 0 15vw 0 15vw;
+  }
+
+  @media screen and (min-width: $bigscreenBreakpoint) {
+    .field {
+      margin-left: calc(#{$sideOffsetBase} - #{$logoOffset});
+      margin-right: $sideOffsetBase;
+
+      .field-name {
+        width: $logoOffset;
+      }
+    }
+    .field.lang-ara {
+      margin-right: calc(#{$sideOffsetBase} - #{$logoOffset});
+      margin-left: $sideOffsetBase;
+    }
+  }
+}

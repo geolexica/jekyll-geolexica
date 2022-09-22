@@ -1,0 +1,14 @@
+---
+layout: base-page
+bodyClass: resource-index
+---
+
+{{ content }}
+
+<ul>
+  {% for resource in page.resources %}
+    <li>
+      <a href="./{{ resource[0] }}">{{ resource[0] }}</a>
+    </li>
+  {% endfor %}
+</ul>

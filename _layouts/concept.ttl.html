@@ -1,0 +1,88 @@
+---
+layout: null
+---
+{%- assign concept = page["eng"] -%}
+{%- assign rdfprofile = "/api/rdf-profile" -%}
+{%- assign concept_html = page.representations.html -%}
+{%- assign concept_id = concept_html.url | extract_concept_id -%}
+{%- assign english = page["eng"] -%}
+{%- assign base_url = site.url | concepts_url -%}
+# baseURI: "{{ base_url }}"
+# imports: http://purl.org/dc/terms/
+# imports: https://www.geolexica.org/api/rdf-profile
+# imports: http://www.w3.org/2004/02/skos/core
+
+@base <{{ base_url }}> .
+@prefix : <{{ base_url }}> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdf-profile: <{{ rdfprofile }}#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<{{ base_url }}>
+  rdf:type owl:Ontology ;
+  owl:imports dcterms: ;
+  owl:imports <{{ rdfprofile }}> ;
+  owl:imports <http://www.w3.org/2004/02/skos/core> ;
+.
+<{{ concept_id }}>
+  rdf:type skos:Concept ;
+
+{%- assign authoritative_source = concept.sources | get_authoritative -%}
+{%- if authoritative_source.link %}
+  dcterms:source "{{ authoritative_source.link }}" ;
+{%- endif %}
+
+{%- for lang in site.geolexica.term_languages %}
+{%- assign localized_term = page[lang] -%}
+{%- if localized_term.terms.size > 0 %}
+  rdf-profile:{{ lang }}Origin rdf-profile:{{ site.data.lang[lang].lang_en }} ;
+{%- endif %}
+{%- endfor %}
+  rdf-profile:termID <{{ page.url }}> ;
+  rdfs:label "{{ english.terms.first.designation | escape }}" ;
+  skos:notation "{{ page.termid }}" ;
+{%- for lang in site.geolexica.term_languages %}
+  {%- assign localized_term = page[lang] -%}
+  {%- if localized_term.definition %}
+  {% for definition in localized_term.definition -%}
+  skos:definition """{{ definition["content"] | escape }}"""@{{ site.data.lang[lang].iso-639-1 }} ;
+  {% endfor -%}
+  {%- endif %}
+{%- endfor -%}
+  skos:inScheme rdf-profile:GeolexicaConceptScheme ;
+
+{%- for lang in site.geolexica.term_languages %}
+{%- assign localized_term = page[lang] -%}
+{%- for term in localized_term.terms %}
+{%- if forloop.first %}
+  skos:prefLabel "{{ term.designation | escape }}"@{{ site.data.lang[lang].iso-639-1 }} ;
+{%- else %}
+  skos:altLabel "{{ term.designation | escape }}"@{{ site.data.lang[lang].iso-639-1 }} ;
+{%- endif %}
+{%- endfor %}
+{%- endfor %}
+
+{%- if concept.date_accepted %}
+  dcterms:dateAccepted "{{ concept.date_accepted | date: "%F" }}" ;
+{%- endif %}
+
+{%- if concept.date_amended %}
+  dcterms:modified "{{ concept.date_amended | date: "%F" }}" ;
+{%- endif %}
+
+{%- if concept.entry_status %}
+  :status "{{ concept.entry_status | escape }}" ;
+{%- endif %}
+
+{%- if concept.terms.first.normative_status %}
+  :classification "{{ concept.terms.first.normative_status | escape }}" ;
+{%- endif %}
+.
+:linked-data-api
+  rdf:type dcterms:MediaTypeOrExtent ;
+  skos:prefLabel "linked-data-api" ;
+.

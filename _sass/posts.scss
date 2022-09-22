@@ -1,0 +1,18 @@
+body.post-index {
+  > main {
+    h1 {
+      font-weight: normal;
+      font-size: 200%;
+    }
+
+    .news-item-card {
+      h3 {
+        margin-bottom: 0;
+      }
+      .meta {
+        color: lighten($textColor, 50);
+        font-size: 80%;
+      }
+    }
+  }
+}

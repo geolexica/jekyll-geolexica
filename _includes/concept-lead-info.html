@@ -1,0 +1,10 @@
+<section class="field ref">
+  <div class="header-term-id">
+    <p class="field-name">Term ID</p>
+    <p class="field-value">{{ page.termid }}</p>
+  </div>
+  <div class="header-source">
+    <p class="field-name">SOURCE</p>
+    <p class="field-value">{{ page["eng"].sources | get_authoritative | display_authoritative_source }}</p>
+  </div>
+</section>

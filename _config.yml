@@ -1,0 +1,38 @@
+title: A Geolexica site
+
+font_awesome_kit_url: https://kit.fontawesome.com/77a8a07e0a.js
+
+has_brand_name: yes
+always_show_committee_link_on_landing: yes
+
+nav:
+  items:
+  - id: concepts
+    url: /concepts
+    title: Concepts
+    description: List of all concepts
+  - id: posts
+    url: /posts
+    title: News & Articles
+  - id: stats
+    url: /stats
+    title: Statistics
+    description: Per-language term statistics
+  - id: about
+    url: /about
+    title: About
+
+email: open.source@ribose.com
+
+powered_by:
+  url: https://open.ribose.com
+  title: Ribose
+  logo_path: /assets/logo-ribose.svg
+
+geolexica:
+  concepts_glob: "./geolexica-database/concepts/*.yaml"
+  concept_date_format: "%F"
+  term_languages:
+    - eng
+  formats:
+    - html

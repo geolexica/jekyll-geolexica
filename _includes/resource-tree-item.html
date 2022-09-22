@@ -1,0 +1,49 @@
+<li class="bp3-tree-node bp3-tree-node-expanded">
+
+  <div class="
+    bp3-tree-node-content
+    {% if include.level > 0 %}bp3-tree-node-content-{{ include.level }}{% endif %}">
+
+    <span class="
+      {% if include.children %}bp3-tree-node-caret bp3-tree-node-caret-open
+      {% else %}bp3-tree-node-caret-none
+      {% endif %}
+      bp3-icon-standard"></span>
+    <span class="
+      bp3-tree-node-icon bp3-icon-standard
+      {% if include.children %}bp3-icon-folder-close
+      {% else %}bp3-icon-document
+      {% endif %}"></span>
+
+    <span class="bp3-tree-node-label" title="{{ include.data }}">
+      {% unless include.children %}
+        <a href="/{{ include.full_path }}">{{ include.data }}</a>
+      {% else %}
+        {{ include.data }}
+      {% endunless %}
+    </span>
+
+    {% unless include.children %}
+      <span class="bp3-tree-node-secondary-label">
+        <a
+          title="Open in separate viewer window"
+          target="resource-viewer"
+          class="bp3-icon-standard bp3-icon-document-share"
+          href="/{{ include.full_path }}"></a>
+      </span>
+    {% endunless %}
+  </div>
+
+  {% if include.children %}
+    <ul class="bp3-tree-node-list">
+      {% for subitem in include.children %}
+        {% include resource-tree-item.html
+            full_path=subitem.full_path
+            data=subitem.data
+            children=subitem.children
+            level=subitem.level %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+</li>

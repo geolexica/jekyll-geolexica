@@ -1,0 +1,131 @@
+{%- assign english = page["eng"] -%}
+{%- assign localized_term = page[lang] -%}
+{%- assign term_status = english.entry_status -%}
+{%- assign classification = english.terms.first.normative_status -%}
+{%- assign english_authoritative_source = english.sources | get_authoritative -%}
+{%- assign localized_authoritative_source = localized_term.sources | get_authoritative -%}
+
+<article
+  class="localized-term field lang-{{ lang }} status-{{ term_status }} classification-{{ classification }}"
+  id="entry-lang-{{ lang }}">
+
+  <p class="field-name field-name-language">{{ lang }}</p>
+
+  <div class="field-value">
+    {% for entry in localized_term.terms %}
+      {%- assign terminological_data = entry | display_terminological_data -%}
+      {%- assign is_preferred = entry | preferred? -%}
+      {%- assign is_abbreviation = entry | abbreviation? -%}
+      {%- assign is_deprecated = entry | deprecated? -%}
+
+      {% if is_preferred %}
+        <p class="localized margin-x-0">
+          <span class="heading">{{ entry.designation | escape }}</span>{{ terminological_data }}
+        </p>
+      {% elsif is_abbreviation %}
+        <p class="localized abbrev margin-x-0">
+          {{ entry.designation | escape }}{{ terminological_data }}
+        </p>
+      {% elsif is_deprecated %}
+        <p class="margin-x-0">
+          DEPRECATED: {{ entry.designation | escape }}{{ terminological_data }}
+        </p>
+      {% else %}
+        <p class="margin-x-0">
+          {{ entry.designation | escape }}{{ terminological_data }}
+        </p>
+      {% endif %}
+    {% else %}
+      <h3 class="warning">Translated term missing in this language.</h3>
+    {% endfor %}
+
+    {% if localized_term.definition %}
+      {% for definition in localized_term.definition %}
+        <p class="definition localized">
+          {%- if localized_term.domain != blank -%}
+            &lt;{{ localized_term.domain | escape }}&gt;&nbsp;
+          {%- endif -%}
+          {{ definition.content | escape | resolve_reference_to_links }}
+        </p>
+      {% endfor %}
+    {% else %}
+      <p class="definition warning">Definition not provided in this language.</p>
+    {% endif %}
+
+    {% if english_authoritative_source.ref != localized_authoritative_source.ref %}
+      <p class="source localized">
+        [SOURCE: {{ localized_authoritative_source | display_authoritative_source }}]
+      </p>
+      <span class="warning">
+        This translated term may not be from the same source as the normative term.
+      </span>
+    {% endif %}
+
+    {% if localized_term.notes %}
+      <div class="notes">
+        {% for note in localized_term.notes %}
+          {% assign notenum = "" %}
+          {% if localized_term.notes.size > 1 %}
+            {% assign notenum = " " | append: forloop.index %}
+          {% endif %}
+          <p class="note localized">
+            <span>
+              {{ site.data.lang[lang].note_to_entry | replace: " DD", notenum }}
+            </span>
+            {% if lang != "eng" and note == english.notes[forloop.index0] %}
+              <span class="warning">
+                This note has not been translated.
+              </span>
+            {% else %}
+              {{ note.content | escape | resolve_reference_to_links }}
+            {% endif %}
+          </p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if localized_term.examples %}
+      <div class="examples">
+        {% for example in localized_term.examples %}
+          <p class="example localized">
+            <span>{{ site.data.lang[lang].example }}
+              {% if localized_term.examples.size > 1 %}
+                {{ forloop.index }}
+              {% endif %}
+            </span>
+            {% if lang != "eng" and example == english.examples[forloop.index0] %}
+              <span class="warning">
+                This example has not been translated.
+              </span>
+            {% else %}
+              {{ example.content | escape | resolve_reference_to_links | add_images }}
+            {% endif %}
+          </p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <ul class="labels">
+      {% if localized_term.alt %}
+        <li><span class="localized">{{ localized_term.alt | escape }}</span></li>
+      {% endif %}
+    </ul>
+
+    <p class="origin localized">
+      {% if lang == "eng" %}
+        [SOURCE:
+          {% for source in english.sources %}
+            {{ source | display_authoritative_source }}{% unless forloop.last %};{% endunless %}
+          {%- endfor -%}
+        ]
+      {% else %}
+        ORIGIN:  <a href="/registers/#language-{{ lang }}">{{ site.data.info.languages[lang].register-name }}</a>
+        (last updated: {{ site.data.info.languages[lang].date-of-last-change }})
+      {% endif %}
+    </p>
+
+  </div>
+  {% if lang == "eng" %}
+    <a id="engTermCopy" style="display:none" tabindex="0" title="Copy to clipboard">copy</a>
+  {% endif %}
+</article>

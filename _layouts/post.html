@@ -1,0 +1,13 @@
+---
+layout: base-page
+bodyClass: post
+parent_title: Articles
+---
+
+{% if page.illustration %}
+  <div class="illustration">
+    <img src="{{ page.illustration | relative_url }}">
+  </div>
+{% endif %}
+
+{{ content }}

@@ -1,0 +1,59 @@
+// Offsets
+// =======
+
+$sideOffsetBase: 15vw;
+
+body > header {
+  padding: 0 $sideOffsetBase 0 $sideOffsetBase;
+
+  // Hanging logo on the left
+  @media screen and (min-width: $bigscreenBreakpoint) {
+    padding: 0 $sideOffsetBase 0 calc(#{$sideOffsetBase} - #{$logoOffset});
+  }
+}
+body > footer {
+  padding: 0 $sideOffsetBase 0 $sideOffsetBase;
+
+  // Hanging logo on the right
+  @media screen and (min-width: $bigscreenBreakpoint) {
+    padding: 0 calc(#{$sideOffsetBase} - #{$logoOffset}) 0 $sideOffsetBase;
+  }
+}
+
+body.home > main  {
+  > section .section-title,
+  > .section > h2,
+  > .section > .sectionbody {
+    margin-left: $sideOffsetBase;
+    margin-right: $sideOffsetBase;
+  }
+}
+
+body.home > main > .news {
+  .items {
+    margin-left: calc(#{$sideOffsetBase} - #{$homeSectionItemSidePadding});
+  }
+}
+
+// Basic body
+.pad-all-main-contents {
+  > main > * {
+    padding-left: $sideOffsetBase;
+    padding-right: $sideOffsetBase / 2;
+
+    @media screen and (min-width: $bigscreenBreakpoint) {
+      padding-right: $sideOffsetBase;
+    }
+  }
+}
+
+body.post, body.page, body.post-index, body.resource-index {
+  @extend .pad-all-main-contents;
+}
+
+body.resource {
+  > main > * {
+    padding-left: $stripeWidth * 2;
+    padding-right: 0;
+  }
+}

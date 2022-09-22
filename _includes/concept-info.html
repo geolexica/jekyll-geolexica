@@ -1,0 +1,19 @@
+{%- assign english = page["eng"] -%}
+<section class="field info">
+  <p class="field-name">info</p>
+  <div class="field-value">
+    <ul class="labels">
+      {% if english.entry_status -%}
+        <li>status: {{ english.entry_status | escape }}</li>
+      {% endif -%}
+
+      {% if english.terms.first.normative_status -%}
+        <li>classification: {{ english.terms.first.normative_status | escape }}</li>
+      {% endif -%}
+
+      {% for date in english.dates %}
+        <li>date {{ date.type }}: {{ date.date | date: site.geolexica.concept_date_format }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,18 @@
+---
+permalink: "/stats/index.html"
+layout: base-page
+nav_items: [concepts, posts, feedback, registers, about]
+bodyClass: page
+title: Statistics
+---
+:page-liquid:
+
+The following languages are provided in Geolexica, with the number of terms displayed below.
+
+{% for lang in site.geolexica.term_languages %}
+{% assign counter = glossary.language_statistics[lang] %}
+* {{ site.data.lang[lang].lang_native }}{% if lang != "eng" %} ({{ site.data.lang[lang].lang_en }}){% endif %}: {{ counter }}
+{% endfor %}
+
+JSON: link:/api/stats.json[/api/stats.json]
+

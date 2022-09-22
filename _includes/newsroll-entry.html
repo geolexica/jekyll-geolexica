@@ -1,0 +1,17 @@
+<article class="
+    news-item-card
+    {% if post.illustration %}news-item--with-illustration{% endif %}">
+
+  {% if post.illustration %}
+    <a class="illustration-container" href="{{ post.url | relative_url }}"
+      style="background-image: url({{ post.illustration | relative_url }});">
+    </a>
+  {% endif %}
+
+  <h3 class="title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+
+  <div class="meta">{{ post.date | date: '%B %d, %Y' }}</div>
+
+  <div class="excerpt">{{ post.excerpt }}</div>
+
+</article>

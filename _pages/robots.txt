@@ -1,0 +1,11 @@
+---
+layout: null
+permalink: "/robots.txt"
+---
+{%- if jekyll.environment == "production" -%}
+User-agent: *
+Sitemap: {{ "sitemap.xml" | absolute_url }}
+{%- else -%}
+User-agent: *
+Disallow: /
+{%- endif %}
