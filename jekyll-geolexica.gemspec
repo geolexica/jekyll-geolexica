@@ -6,7 +6,7 @@ require_relative "lib/jekyll/geolexica/version"
 all_files_in_git = Dir.chdir(__dir__) { `git ls-files -z`.split("\x0") }
 
 ribose_url = "https://open.ribose.com/"
-github_url = "https://github.com/geolexica/geolexica-server"
+github_url = "https://github.com/geolexica/jekyll-geolexica"
 
 Gem::Specification.new do |spec|
   spec.name          = "jekyll-geolexica"
