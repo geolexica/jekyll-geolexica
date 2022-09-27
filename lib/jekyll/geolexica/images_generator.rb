@@ -21,7 +21,7 @@ module Jekyll
         @site = site
         @generated_pages = []
 
-        make_images if Dir.exist?(images_path)
+        make_images if images_path && Dir.exist?(images_path)
         site.static_files.concat(generated_pages)
       end
 
