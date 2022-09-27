@@ -48,6 +48,8 @@ module Jekyll
       REFERENCE_REGEX = /(?:&lt;|<){2}((?!:&gt;:&gt;).*?)(?:&gt;|>){2}/.freeze
 
       def resolve_reference_to_links(text)
+        return text if text.nil?
+
         text.gsub!(URN_REFERENCE_REGEX) do |reference|
           urn = Regexp.last_match[1]
 
@@ -76,6 +78,8 @@ module Jekyll
       end
 
       def link_tag_from_ref(ref)
+        return ref if @context.registers[:site].data["bibliography"].nil?
+
         bib_ref = @context.registers[:site].data["bibliography"][ref]
 
         if bib_ref["user_defined"]
@@ -98,6 +102,8 @@ module Jekyll
       IMAGE_REGEX = /(?:<|&lt;){2}(fig_.*?)(?:>|&gt;){2}/.freeze
 
       def add_images(text)
+        return text if text.nil?
+
         images = []
 
         text.gsub!(IMAGE_REGEX) do
