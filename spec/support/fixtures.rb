@@ -15,7 +15,7 @@ module FixtureHelper
   end
 
   def load_concept_fixture(fixture_name)
-    data = YAML.load(fixture(fixture_name))
+    data = YAML.safe_load(fixture(fixture_name), permitted_classes: [Time])
     ::Jekyll::Geolexica::Glossary::Concept.new(data)
   end
 end
