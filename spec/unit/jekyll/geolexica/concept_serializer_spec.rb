@@ -59,7 +59,7 @@ RSpec.describe ::Jekyll::Geolexica::ConceptSerializer do
       expect(retval).to be_kind_of(String) & start_with("---\n")
       expect { YAML.parse(retval) }.not_to raise_error # be valid YAML
 
-      parsed_retval = YAML.load retval
+      parsed_retval = YAML.safe_load retval, permitted_classes: [Time]
 
       expect(parsed_retval.keys).to contain_exactly(
         "term", "termid", "eng", "jpn", "pol", "unknown")
