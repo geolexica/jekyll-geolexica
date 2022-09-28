@@ -41,7 +41,7 @@ RSpec.describe ::Jekyll::Geolexica::Configuration do
 
     it "returns a configured glob path to concepts" do
       fake_geolexica_config.replace({"concepts_glob" => "./some/glob/*"})
-      expect(subject.()).to eq("#{fake_site_source}/some/glob/*")
+      expect(subject.()).to eq(File.expand_path("#{fake_site_source}/some/glob/*"))
     end
 
     it "has some sensible defaults" do
