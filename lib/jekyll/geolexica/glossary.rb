@@ -51,7 +51,7 @@ module Jekyll
 
       # Reads and parses concept file located at given path.
       def read_concept_file(path)
-        YAML.safe_load(File.read path, permitted_classes: [Time])
+        YAML.safe_load(File.read(path), permitted_classes: [Time])
       end
 
       # Does nothing, but some sites may replace this method.
