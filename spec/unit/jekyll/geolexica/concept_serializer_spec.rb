@@ -13,7 +13,7 @@ RSpec.describe ::Jekyll::Geolexica::ConceptSerializer do
   end
 
   let(:fake_config) do
-    YAML.load(<<~YAML)
+    YAML.safe_load(<<~YAML, permitted_classes: [Time])
       geolexica:
         term_languages:
           - eng

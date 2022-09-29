@@ -104,6 +104,6 @@ RSpec.describe ::Jekyll::Geolexica::Configuration do
   def load_plugin_config
     path = File.expand_path("../../../../_config.yml", __dir__)
     yaml = File.read(path)
-    YAML.load(yaml)
+    YAML.safe_load(yaml, permitted_classes: [Time])
   end
 end

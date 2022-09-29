@@ -136,8 +136,9 @@ module Jekyll
         glossary_path = site.config["geolexica"]["glossary_path"]
         return {} if glossary_path.nil? || glossary_path.empty?
 
-        @images_metadata ||= YAML.load_file(
+        @images_metadata ||= YAML.safe_load_file(
           File.expand_path("#{glossary_path}/images_metadata.yaml", site.source),
+          permitted_classes: [Time],
         )
       end
 
