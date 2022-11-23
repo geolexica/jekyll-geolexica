@@ -1,6 +1,28 @@
 <header>
-  <h2 class="section-title">
-    Concept
-    <span class="term-name">{{ page.term | escape }}</span>
-  </h2>
+  <div class="header-row">
+    <h2>
+      Concept
+      <span class="term-name">{{ page.term | escape }}</span>
+    </h2>
+
+    <div class="links">
+      {%- assign current_url = site.url | append: page.url -%}
+
+      {% if site.suggest_translation_url %}
+        <div>
+        <a href="{{ site.suggest_translation_url }}<{{ current_url }}>" target="_blank">
+          Suggest translation
+        </a>
+        </div>
+      {% endif %}
+
+      {% if site.suggest_translation_url %}
+        <div>
+        <a href="{{ site.report_issue_url }}<{{ current_url }}>" target="_blank">
+          Report an issue
+        </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
 </header>

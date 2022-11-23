@@ -195,8 +195,23 @@ body.concept > main {
     margin-left: $sideOffsetBase;
     margin-right: $sideOffsetBase;
   }
+
   .field {
     margin: 0 15vw 0 15vw;
+  }
+
+  .header-row {
+    margin: 0 15vw 0 0;
+    display: flex;
+  }
+
+  .links {
+    margin-left: auto;
+
+    > div a {
+      color: $warningColor;
+      border-bottom: none;
+    }
   }
 
   @media screen and (min-width: $bigscreenBreakpoint) {

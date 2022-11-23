@@ -30,6 +30,14 @@ module Jekyll
         File.expand_path("#{glossary_path}/bibliography.yaml", site.source)
       end
 
+      def suggest_translation_url
+        glossary_config["suggest_translation_url"]
+      end
+
+      def report_issue_url
+        glossary_config["report_issue_url"]
+      end
+
       def term_languages
         glossary_config["term_languages"]
       end
