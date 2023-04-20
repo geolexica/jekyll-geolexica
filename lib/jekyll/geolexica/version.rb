@@ -3,6 +3,6 @@
 
 module Jekyll
   module Geolexica
-    VERSION = "1.8.5".freeze
+    VERSION = "1.8.6".freeze
   end
 end
