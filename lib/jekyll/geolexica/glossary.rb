@@ -40,7 +40,13 @@ module Jekyll
       def load_concept(concept_file_path)
         Jekyll.logger.debug("Geolexica:",
           "reading concept from file #{concept_file_path}")
-        concept_hash = read_concept_file(concept_file_path)
+
+        concept_hash = if glossary_format == "paneron"
+                         read_paneron_concept_file(concept_file_path)
+                       else
+                         read_concept_file(concept_file_path)
+                       end
+
         preprocess_concept_hash(concept_hash)
         store Concept.new(concept_hash)
       rescue
@@ -52,6 +58,23 @@ module Jekyll
       # Reads and parses concept file located at given path.
       def read_concept_file(path)
         YAML.safe_load(File.read(path), permitted_classes: [Time])
+      end
+
+      def read_paneron_concept_file(path)
+        safe_load_options = { permitted_classes: [Date, Time] }
+        concept = YAML.safe_load(File.read(path), **safe_load_options)
+        concept["termid"] = concept["data"]["identifier"]
+
+        concept["data"]["localizedConcepts"].each do |lang, local_concept_id|
+          localized_concept_path = File.join(localized_concepts_path, "#{local_concept_id}.yaml")
+          concept[lang] = YAML.safe_load(File.read(localized_concept_path), **safe_load_options)["data"]
+
+          if lang == "eng" && concept[lang]
+            concept["term"] = concept[lang]["terms"].first["designation"]
+          end
+        end
+
+        concept
       end
 
       # Does nothing, but some sites may replace this method.

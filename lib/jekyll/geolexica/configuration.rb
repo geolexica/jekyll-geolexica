@@ -9,6 +9,17 @@ module Jekyll
         File.expand_path(glob_string, site.source)
       end
 
+      def localized_concepts_path
+        path = glossary_config["localized_concepts_path"]
+        return nil if path.nil? || path.empty?
+
+        File.expand_path(path, site.source)
+      end
+
+      def glossary_format
+        glossary_config["format"]
+      end
+
       def images_path
         glossary_path = glossary_config["glossary_path"]
         return nil if glossary_path.nil? || glossary_path.empty?
