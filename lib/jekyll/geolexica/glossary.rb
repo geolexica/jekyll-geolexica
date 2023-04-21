@@ -69,11 +69,11 @@ module Jekyll
           localized_concept_path = File.join(localized_concepts_path, "#{local_concept_id}.yaml")
           concept[lang] = YAML.safe_load(File.read(localized_concept_path), **safe_load_options)["data"]
 
-          if lang == "eng" && concept[lang]
-            concept["term"] = concept[lang]["terms"].first["designation"]
-          end
+          next unless concept[lang]
 
-          if concept[lang] && concept[lang]['status'] && !concept[lang]['status'].empty? &&
+          concept['term'] = concept[lang]['terms'].first['designation'] if lang == 'eng'
+
+          if concept[lang]['status'] && !concept[lang]['status'].empty? &&
              (concept[lang]['entry_status'].nil? || concept[lang]['entry_status'].empty?)
             concept['entry_status'] = concept[lang]['status']
           end
