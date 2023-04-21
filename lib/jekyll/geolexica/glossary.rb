@@ -75,7 +75,7 @@ module Jekyll
 
           if concept[lang]['status'] && !concept[lang]['status'].empty? &&
              (concept[lang]['entry_status'].nil? || concept[lang]['entry_status'].empty?)
-            concept['entry_status'] = concept[lang]['status']
+            concept[lang]['entry_status'] = concept[lang]['status']
           end
         end
 
