@@ -65,7 +65,7 @@ module Jekyll
         concept = YAML.safe_load(File.read(path), **safe_load_options)
         concept['termid'] = concept['data']['identifier']
 
-        concept['data']['localizedConcepts'].each do |lang, local_concept_id|
+        (concept['data']['localizedConcepts'] || []).each do |lang, local_concept_id|
           localized_concept_path = File.join(localized_concepts_path, "#{local_concept_id}.yaml")
           concept[lang] = YAML.safe_load(File.read(localized_concept_path), **safe_load_options)['data']
 
