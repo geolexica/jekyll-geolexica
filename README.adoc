@@ -1,0 +1,15 @@
+= jekyll-geolexica
+
+image:https://github.com/geolexica/jekyll-geolexica/actions/workflows/test.yaml/badge.svg[Build Status,link=https://github.com/geolexica/jekyll-geolexica/actions/workflows/test.yaml]
+image:https://img.shields.io/gem/v/jekyll-geolexica.svg[Gem Version,link=https://rubygems.org/gems/jekyll-geolexica]
+image:https://img.shields.io/github/issues-pr-raw/geolexica/jekyll-geolexica.svg[Pull Requests,link=https://github.com/geolexica/jekyll-geolexica/pulls]
+image:https://img.shields.io/github/commits-since/geolexica/jekyll-geolexica/latest.svg[Commits since latest,link=https://github.com/geolexica/jekyll-geolexica/releases]
+
+Jekyll plugin for Geolexica by the Geolexica Team.
+
+== Releasing
+
+=== New approach
+
+Do `+git tag ${version-tag}+` or, start release manually with the
+https://github.com/geolexica/jekyll-geolexica/actions/workflows/release.yml[`release.yml` workflow]
