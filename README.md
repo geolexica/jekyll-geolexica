@@ -1,6 +1,6 @@
 # jekyll-geolexica
 
-[![Build Status](https://github.com/geolexica/jekyll-geolexica/actions/workflows/test.yml/badge.svg)](https://github.com/geolexica/jekyll-geolexica/actions/workflows/test.yml)
+[![Build Status](https://github.com/geolexica/jekyll-geolexica/actions/workflows/Test.yml/badge.svg)](https://github.com/geolexica/jekyll-geolexica/actions/workflows/Test.yml)
 [![Gem Version](https://img.shields.io/gem/v/jekyll-geolexica.svg)](https://rubygems.org/gems/jekyll-geolexica
 )
 [![Pull Requests](https://img.shields.io/github/issues-pr-raw/geolexica/jekyll-geolexica.svg)](https://github.com/geolexica/jekyll-geolexica/pulls)
