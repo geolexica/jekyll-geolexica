@@ -72,11 +72,6 @@ module Jekyll
           next unless concept[lang]
 
           concept['term'] = concept[lang]['terms'].first['designation'] if lang == 'eng'
-
-          if concept[lang]['status'] && !concept[lang]['status'].empty? &&
-             (concept[lang]['entry_status'].nil? || concept[lang]['entry_status'].empty?)
-            concept[lang]['entry_status'] = concept[lang]['status']
-          end
         end
 
         concept

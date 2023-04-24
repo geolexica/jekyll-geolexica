@@ -27,7 +27,7 @@ json.array! site["concepts"].each_with_index.to_a do |(concept, idx)|
       json.term localized.dig("terms", 0, "designation")
       json.id localized["id"]
       json.term_url "#{concept.url}#entry-lang-#{lang}"
-      json.entry_status english["entry_status"]
+      json.entry_status concept["status"]
       json.language_code localized["language_code"]
       json.review_decision english["review_decision"]
     end
