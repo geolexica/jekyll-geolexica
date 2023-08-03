@@ -36,6 +36,50 @@ RSpec.describe ::Jekyll::Geolexica::Glossary do
     end
   end
 
+  context "Glossarist V2 concepts" do
+    describe "#load_concept" do
+      let(:load_concept) { subject.send(:load_concept, file_path) }
+      let(:file_path) { fixture_path("paneron_glossary/concept/055c7785-e3c2-4df0-bcbc-83c1314864af.yaml") }
+
+      let(:expected_data) do
+        {
+          "id" => "055c7785-e3c2-4df0-bcbc-83c1314864af",
+          "termid" => "SPP",
+          "eng" => {
+            "terms" => [{
+              "designation" => "SPP",
+              "type" => "expression",
+              "normative_status" => "preferred"
+            }],
+            "language_code" => "eng",
+            "definition" => [{
+              "content" => "Standards-related Publications and Projects"
+            }],
+            "notes" => [],
+            "examples" => [],
+            "sources" => [
+              { "type" => "authoritative", "ref" => "MSF" }
+            ]
+          }
+        }
+      end
+
+      before(:each) do
+        allow(subject).to receive(:glossary_format).and_return("paneron")
+        allow(subject).to receive(:localized_concepts_path).and_return(fixture_path("paneron_glossary/localized-concept"))
+      end
+
+      it "should change data count" do
+        expect { load_concept }.to change { subject.count }.from(0).to(1)
+      end
+
+      it "should load data" do
+        load_concept
+        expect(subject["SPP"].data).to include(expected_data)
+      end
+    end
+  end
+
   def add_concepts(*concept_hashes)
     concepts = concept_hashes.map { |h| described_class::Concept.new(h) }
     concepts.each { |c| instance.store c }
