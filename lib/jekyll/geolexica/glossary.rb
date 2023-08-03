@@ -71,10 +71,20 @@ module Jekyll
 
           next unless concept[lang]
 
+          normalize_sources(concept[lang])
           concept['term'] = concept[lang]['terms'].first['designation'] if lang == 'eng'
         end
 
         concept
+      end
+
+      def normalize_sources(concept)
+        authoritative_sources = concept.delete('authoritativeSource') || []
+        concept['sources'] ||= []
+
+        authoritative_sources.each do |authoritative_source|
+          concept['sources'] << authoritative_source.merge({ 'type' => 'authoritative' })
+        end
       end
 
       # Does nothing, but some sites may replace this method.
