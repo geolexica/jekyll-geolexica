@@ -83,7 +83,14 @@ module Jekyll
         concept['sources'] ||= []
 
         authoritative_sources.each do |authoritative_source|
-          concept['sources'] << authoritative_source.merge({ 'type' => 'authoritative' })
+          concept['sources'] << {
+            "origin" => {
+              'ref' => authoritative_source['ref'],
+              'clause' => authoritative_source['clause'],
+              'link' => authoritative_source['link'],
+            }.compact,
+            'type' => 'authoritative'
+          }
         end
       end
 
