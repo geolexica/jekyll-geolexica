@@ -58,7 +58,10 @@ RSpec.describe ::Jekyll::Geolexica::Glossary do
             "notes" => [],
             "examples" => [],
             "sources" => [
-              { "type" => "authoritative", "ref" => "MSF" }
+              {
+                "origin" => { "ref" => "MSF" },
+                "type" => "authoritative"
+              }
             ]
           }
         }
