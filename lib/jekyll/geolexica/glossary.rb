@@ -83,14 +83,21 @@ module Jekyll
         concept['sources'] ||= []
 
         authoritative_sources.each do |authoritative_source|
+          if authoritative_source['relationship']
+            status = authoritative_source['relationship']['type']
+            modification = authoritative_source['relationship']['modification']
+          end
+
           concept['sources'] << {
+            "status" => status,
+            "modification" => modification,
             "origin" => {
               'ref' => authoritative_source['ref'],
               'clause' => authoritative_source['clause'],
               'link' => authoritative_source['link'],
             }.compact,
             'type' => 'authoritative'
-          }
+          }.compact
         end
       end
 
