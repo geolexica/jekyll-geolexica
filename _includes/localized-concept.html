@@ -42,7 +42,7 @@
     {% if localized_term.definition %}
       {% for definition in localized_term.definition %}
         <p class="definition localized">
-          {%- if localized_term.domain != blank -%}
+          {%- if localized_term.domain -%}
             &lt;{{ localized_term.domain | escape }}&gt;&nbsp;
           {%- endif -%}
           {{ definition.content | escape | resolve_reference_to_links }}
