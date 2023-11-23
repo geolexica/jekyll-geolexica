@@ -25,7 +25,7 @@ module Jekyll
         modification = input["modification"]
         return source unless modification
 
-        "#{source}, modified -- #{modification}"
+        "#{source}, #{input["status"] || "modified"} -- #{modification}"
       end
 
       def concepts_url(base_url)
