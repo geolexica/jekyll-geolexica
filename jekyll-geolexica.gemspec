@@ -43,6 +43,8 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "jbuilder"
 
   spec.add_runtime_dependency "jekyll-asciidoc"
+  # Pin logger to <= 1.5.3 due to incompatibility of logger 1.6.0 with Jekyll 4.3.2
+  spec.add_runtime_dependency "logger", "<= 1.5.3"
   spec.add_runtime_dependency "relaton"
 
   # Zeitwerk::Loader#push_dir supports :namespace argument from v. 2.4.
