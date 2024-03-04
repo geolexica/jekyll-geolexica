@@ -13,11 +13,26 @@ module Jekyll
 
       def initialize(site)
         @site = site
+        @collection = Glossarist::ManagedConceptCollection.new
       end
 
       def load_glossary
         Jekyll.logger.info('Geolexica:', 'Loading concepts')
-        Dir.glob(concepts_glob).each { |path| load_concept(path) }
+        @collection.load_from_files(glossary_path)
+
+        @collection.each do |managed_concept|
+          concept_hash = {
+            "id" => managed_concept.uuid,
+            "term" => managed_concept.id,
+            "termid" => managed_concept.id,
+          }.merge(managed_concept.to_h)
+
+          managed_concept.localizations.each do |lang, localization|
+            concept_hash[lang] = localization.to_h["data"]
+          end
+
+          store(Concept.new(preprocess_concept_hash(concept_hash)))
+        end
       end
 
       def store(concept)
@@ -37,68 +52,9 @@ module Jekyll
 
       protected
 
-      def load_concept(concept_file_path)
-        Jekyll.logger.debug('Geolexica:',
-                            "reading concept from file #{concept_file_path}")
-
-        concept_hash = if glossary_format == 'paneron'
-                         read_paneron_concept_file(concept_file_path)
-                       else
-                         read_concept_file(concept_file_path)
-                       end
-
-        preprocess_concept_hash(concept_hash)
-        store Concept.new(concept_hash)
-      rescue StandardError
-        Jekyll.logger.error('Geolexica:',
-                            "failed to read concept from file #{concept_file_path}")
-        raise
-      end
-
       # Reads and parses concept file located at given path.
       def read_concept_file(path)
         YAML.safe_load(File.read(path), permitted_classes: [Time])
-      end
-
-      def read_paneron_concept_file(path)
-        safe_load_options = { permitted_classes: [Date, Time] }
-        concept = YAML.safe_load(File.read(path), **safe_load_options)
-        concept['termid'] = concept['data']['identifier']
-
-        (concept['data']['localizedConcepts'] || []).each do |lang, local_concept_id|
-          localized_concept_path = File.join(localized_concepts_path, "#{local_concept_id}.yaml")
-          concept[lang] = YAML.safe_load(File.read(localized_concept_path), **safe_load_options)['data']
-
-          next unless concept[lang]
-
-          normalize_sources(concept[lang])
-          concept['term'] = concept[lang]['terms'].first['designation'] if lang == 'eng'
-        end
-
-        concept
-      end
-
-      def normalize_sources(concept)
-        authoritative_sources = concept.delete('authoritativeSource') || []
-        concept['sources'] ||= []
-
-        authoritative_sources.each do |authoritative_source|
-          if authoritative_source['relationship']
-            status = authoritative_source['relationship']['type']
-            modification = authoritative_source['relationship']['modification']
-          end
-
-          concept['sources'] << {
-            "status" => status,
-            "modification" => modification,
-            "origin" => {
-              'ref' => authoritative_source['ref'],
-              'clause' => authoritative_source['clause'],
-              'link' => authoritative_source['link'],
-            }.compact,
-            'type' => 'authoritative'
-          }.compact
-        end
       end
 
       # Does nothing, but some sites may replace this method.

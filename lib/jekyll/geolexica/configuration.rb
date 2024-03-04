@@ -16,6 +16,11 @@ module Jekyll
         File.expand_path(path, site.source)
       end
 
+      def glossary_path
+        glob_string = glossary_config["glossary_path"]
+        File.expand_path(glob_string, site.source)
+      end
+
       def glossary_format
         glossary_config["format"]
       end

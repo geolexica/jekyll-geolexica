@@ -69,7 +69,8 @@ RSpec.describe ::Jekyll::Geolexica::Glossary do
 
       before(:each) do
         allow(subject).to receive(:glossary_format).and_return("paneron")
-        allow(subject).to receive(:localized_concepts_path).and_return(fixture_path("paneron_glossary/localized-concept"))
+        allow(subject).to receive(:glossary_path).and_return(fixture_path("paneron_glossary"))
+        allow(subject).to receive(:localized_concepts_path).and_return(fixture_path("paneron_glossary/localized_concept"))
       end
 
       it "should change data count" do
@@ -78,6 +79,54 @@ RSpec.describe ::Jekyll::Geolexica::Glossary do
 
       it "should load data" do
         load_concept
+        expect(subject["SPP"].data).to include(expected_data)
+      end
+    end
+
+    describe "#load_glossary" do
+      let(:load_glossary) { subject.send(:load_glossary) }
+
+      let(:expected_data) do
+        {
+          "id" => "055c7785-e3c2-4df0-bcbc-83c1314864af",
+          "termid" => "SPP",
+          "eng" => {
+            "id" => "04e539b2-4557-4d05-a603-9881ed6951c6",
+            "dates" => [],
+            "terms" => [{
+              "designation" => "SPP",
+              "type" => "expression",
+              "normative_status" => "preferred"
+            }],
+            "language_code" => "eng",
+            "definition" => [{
+              "content" => "Standards-related Publications and Projects"
+            }],
+            "notes" => [],
+            "examples" => [],
+            "sources" => [
+              {
+                "origin" => { "ref" => "MSF" },
+                "type" => "authoritative"
+              }
+            ]
+          }
+        }
+      end
+
+      before(:each) do
+        allow(subject).to receive(:glossary_format).and_return("paneron")
+        allow(subject).to receive(:glossary_path).and_return(fixture_path("paneron_glossary"))
+        allow(subject).to receive(:concepts_glob).and_return(fixture_path("paneron_glossary/concept/*"))
+        allow(subject).to receive(:localized_concepts_path).and_return(fixture_path("paneron_glossary/localized_concept"))
+      end
+
+      it "should change data count" do
+        expect { load_glossary }.to change { subject.count }.from(0).to(1)
+      end
+
+      it "should load data" do
+        load_glossary
         expect(subject["SPP"].data).to include(expected_data)
       end
     end
