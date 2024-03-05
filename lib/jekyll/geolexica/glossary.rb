@@ -31,7 +31,8 @@ module Jekyll
             concept_hash[lang] = localization.to_h["data"]
           end
 
-          store(Concept.new(preprocess_concept_hash(concept_hash)))
+          preprocess_concept_hash(concept_hash)
+          store(Concept.new(concept_hash))
         end
       end
 
@@ -51,11 +52,6 @@ module Jekyll
       end
 
       protected
-
-      # Reads and parses concept file located at given path.
-      def read_concept_file(path)
-        YAML.safe_load(File.read(path), permitted_classes: [Time])
-      end
 
       # Does nothing, but some sites may replace this method.
       def preprocess_concept_hash(concept_hash); end
