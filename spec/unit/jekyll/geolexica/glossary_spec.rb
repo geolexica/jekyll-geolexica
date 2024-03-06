@@ -43,7 +43,7 @@ RSpec.describe ::Jekyll::Geolexica::Glossary do
       let(:expected_data) do
         {
           "id" => "055c7785-e3c2-4df0-bcbc-83c1314864af",
-          "term" => "SPP",
+          "term" => "association <UML>",
           "termid" => "SPP",
           "data" => {
             "identifier" => "SPP",
@@ -476,7 +476,7 @@ RSpec.describe ::Jekyll::Geolexica::Glossary do
       let(:expected_data) do
         {
           "id" => "18e02fe9-e52d-50a0-84ac-9fccae815fbd",
-          "term" => "10",
+          "term" => "admitted term",
           "termid" => "10",
           "data" => {
             "identifier" => "10",

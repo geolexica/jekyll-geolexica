@@ -23,7 +23,7 @@ module Jekyll
         @collection.each do |managed_concept|
           concept_hash = {
             "id" => managed_concept.uuid,
-            "term" => managed_concept.id,
+            "term" => managed_concept.default_designation,
             "termid" => managed_concept.id,
           }.merge(managed_concept.to_h)
 
