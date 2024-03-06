@@ -11,27 +11,26 @@
             "type" : "expression"
          }
       ],
-      "authoritative_source" : {
-         "clause" : "3.4.16, modified — the Note 1 to entry has been added.",
-         "ref" : "ISO 1087-1:2000",
-         "link" : "https://www.iso.org/standard/20057.html"
-      },
+      "authoritative_source" : [
+         {
+            "clause" : "3.4.16, modified — the Note 1 to entry has been added.",
+            "ref" : "ISO 1087-1:2000",
+            "link" : "https://www.iso.org/standard/20057.html"
+         }
+      ],
       "lineage_source_similarity" : 1,
       "review_decision_event" : "Publication of ISO 19104:2016",
       "notes" : [],
-      "definition" : "término clasificado de acuerdo a la escala de aceptanción como un sinónimo de un término preferente",
+      "definition" : ["término clasificado de acuerdo a la escala de aceptanción como un sinónimo de un término preferente"],
       "language_code" : "spa",
       "lineage_source" : "ISO/TS 19104:2008",
       "review_decision_date" : "2016-10-01 00:00:00 +0800",
       "examples" : [],
       "release" : "2",
       "review_date" : "2013-01-29 00:00:00 +0800",
-      "review_decision_notes" : "Authoritative reference changed from ISO 1087-1:2000 to ISO 1087-1:2000, 3.4.16, modified — the Note 1 to entry has been added.. Lineage source added as ISO/TS 19104:2008",
       "date_accepted" : "2008-11-15 00:00:00 +0800",
-      "review_status" : "final",
       "entry_status" : "valid",
-      "id" : 10,
-      "review_decision" : "accepted"
+      "id" : "10"
    },
    "ara" : {
       "terms" : [
@@ -41,27 +40,26 @@
             "type" : "expression"
          }
       ],
-      "authoritative_source" : {
-         "ref" : "ISO 1087-1:2000",
-         "clause" : "3.4.16, modified — the Note 1 to entry has been added.",
-         "link" : "https://www.iso.org/standard/20057.html"
-      },
+      "authoritative_source" : [
+         {
+            "ref" : "ISO 1087-1:2000",
+            "clause" : "3.4.16, modified — the Note 1 to entry has been added.",
+            "link" : "https://www.iso.org/standard/20057.html"
+         }
+      ],
       "lineage_source_similarity" : 1,
       "review_decision_event" : "Publication of ISO 19104:2016",
       "notes" : [],
       "language_code" : "ara",
-      "definition" : "مصطلح صنف وفقا لمقياس تصنيف قبول المصطلحات كمرادف للمصطلح المفضل",
+      "definition" : ["مصطلح صنف وفقا لمقياس تصنيف قبول المصطلحات كمرادف للمصطلح المفضل"],
       "lineage_source" : "ISO/TS 19104:2008",
       "review_decision_date" : "2016-10-01 00:00:00 +0800",
       "examples" : [],
-      "review_decision_notes" : "Authoritative reference changed from ISO 1087-1:2000 to ISO 1087-1:2000, 3.4.16, modified — the Note 1 to entry has been added.. Lineage source added as ISO/TS 19104:2008",
       "date_accepted" : "2008-11-15 00:00:00 +0800",
       "release" : "2",
       "review_date" : "2013-01-29 00:00:00 +0800",
       "entry_status" : "valid",
-      "review_decision" : "accepted",
-      "id" : 10,
-      "review_status" : "final"
+      "id" : "10"
    },
    "msa" : null,
    "dut" : null,
@@ -74,14 +72,16 @@
             "designation" : "승인 용어"
          }
       ],
-      "authoritative_source" : {
-         "link" : "https://www.iso.org/standard/20057.html",
-         "ref" : "ISO 1087-1:2000",
-         "clause" : "3.4.16, modified — the Note 1 to entry has been added."
-      },
+      "authoritative_source" : [
+         {
+            "link" : "https://www.iso.org/standard/20057.html",
+            "ref" : "ISO 1087-1:2000",
+            "clause" : "3.4.16, modified — the Note 1 to entry has been added."
+         }
+      ],
       "review_decision_event" : "Publication of ISO 19104:2016",
       "notes" : [],
-      "definition" : "상용 용어의 동의어로써 용어 수용가능성 등급체계에 의거하여 등급이 부여된 용어",
+      "definition" : ["상용 용어의 동의어로써 용어 수용가능성 등급체계에 의거하여 등급이 부여된 용어"],
       "language_code" : "kor",
       "review_decision_date" : "2016-10-01 00:00:00 +0800",
       "lineage_source" : "ISO/TS 19104:2008",
@@ -89,22 +89,21 @@
       "review_date" : "2013-01-29 00:00:00 +0800",
       "release" : "2",
       "date_accepted" : "2008-11-15 00:00:00 +0800",
-      "review_decision_notes" : "Authoritative reference changed from ISO 1087-1:2000 to ISO 1087-1:2000, 3.4.16, modified — the Note 1 to entry has been added.. Lineage source added as ISO/TS 19104:2008",
-      "review_status" : "final",
-      "id" : 10,
-      "review_decision" : "accepted",
+      "id" : "10",
       "entry_status" : "valid"
    },
    "eng" : {
       "notes" : [],
       "language_code" : "eng",
-      "definition" : "term rated according to the scale of the term acceptability rating as a synonym for a preferred term",
+      "definition" : ["term rated according to the scale of the term acceptability rating as a synonym for a preferred term"],
       "lineage_source_similarity" : 1,
-      "authoritative_source" : {
-         "link" : "https://www.iso.org/standard/20057.html",
-         "clause" : "3.4.16, modified — the Note 1 to entry has been added.",
-         "ref" : "ISO 1087-1:2000"
-      },
+      "authoritative_source" : [
+         {
+            "link" : "https://www.iso.org/standard/20057.html",
+            "clause" : "3.4.16, modified — the Note 1 to entry has been added.",
+            "ref" : "ISO 1087-1:2000"
+         }
+      ],
       "terms" : [
          {
             "designation" : "admitted term",
@@ -114,13 +113,10 @@
       ],
       "review_decision_event" : "Publication of ISO 19104:2016",
       "date_accepted" : "2008-11-15 00:00:00 +0800",
-      "review_decision_notes" : "Authoritative reference changed from ISO 1087-1:2000 to ISO 1087-1:2000, 3.4.16, modified — the Note 1 to entry has been added.. Lineage source added as ISO/TS 19104:2008",
       "review_date" : "2013-01-29 00:00:00 +0800",
       "release" : "2",
-      "review_decision" : "accepted",
-      "id" : 10,
+      "id" : "10",
       "entry_status" : "valid",
-      "review_status" : "final",
       "review_decision_date" : "2016-10-01 00:00:00 +0800",
       "lineage_source" : "ISO/TS 19104:2008",
       "examples" : []
@@ -132,17 +128,16 @@
       "review_date" : "2013-01-29 00:00:00 +0800",
       "release" : "2",
       "date_accepted" : "2008-11-15 00:00:00 +0800",
-      "review_decision_notes" : "Authoritative reference changed from ISO 1087-1:2000 to ISO 1087-1:2000, 3.4.16, modified — the Note 1 to entry has been added.. Lineage source added as ISO/TS 19104:2008",
-      "review_status" : "final",
-      "review_decision" : "accepted",
-      "id" : 10,
+      "id" : "10",
       "entry_status" : "valid",
       "lineage_source_similarity" : 1,
-      "authoritative_source" : {
-         "link" : "https://www.iso.org/standard/20057.html",
-         "ref" : "ISO 1087-1:2000",
-         "clause" : "3.4.16, modified — the Note 1 to entry has been added."
-      },
+      "authoritative_source" : [
+         {
+            "link" : "https://www.iso.org/standard/20057.html",
+            "ref" : "ISO 1087-1:2000",
+            "clause" : "3.4.16, modified — the Note 1 to entry has been added."
+         }
+      ],
       "terms" : [
          {
             "designation" : "tilladt term",
@@ -152,7 +147,7 @@
       ],
       "review_decision_event" : "Publication of ISO 19104:2016",
       "notes" : [],
-      "definition" : "term, klassificeret efter en skala for tilladte termer, anvendt som synonym for en foretrukket term",
+      "definition" : ["term, klassificeret efter en skala for tilladte termer, anvendt som synonym for en foretrukket term"],
       "language_code" : "dan"
    },
    "fin" : null,
@@ -165,11 +160,13 @@
             "type" : "expression"
          }
       ],
-      "authoritative_source" : {
-         "ref" : "ISO 1087-1:2000",
-         "clause" : "3.4.16, modified — the Note 1 to entry has been added.",
-         "link" : "https://www.iso.org/standard/20057.html"
-      },
+      "authoritative_source" : [
+         {
+            "ref" : "ISO 1087-1:2000",
+            "clause" : "3.4.16, modified — the Note 1 to entry has been added.",
+            "link" : "https://www.iso.org/standard/20057.html"
+         }
+      ],
       "review_decision_event" : "Publication of ISO 19104:2016",
       "notes" : [],
       "language_code" : "ger",
@@ -179,10 +176,7 @@
       "review_date" : "2013-01-29 00:00:00 +0800",
       "release" : "2",
       "date_accepted" : "2008-11-15 00:00:00 +0800",
-      "review_decision_notes" : "Authoritative reference changed from ISO 1087-1:2000 to ISO 1087-1:2000, 3.4.16, modified — the Note 1 to entry has been added.. Lineage source added as ISO/TS 19104:2008",
-      "review_status" : "final",
-      "review_decision" : "accepted",
-      "id" : 10,
+      "id" : "10",
       "entry_status" : "valid"
    },
    "jpn" : null,
@@ -194,10 +188,7 @@
       "review_date" : "2013-01-29 00:00:00 +0800",
       "release" : "2",
       "date_accepted" : "2008-11-15 00:00:00 +0800",
-      "review_decision_notes" : "Authoritative reference changed from ISO 1087-1:2000 to ISO 1087-1:2000, 3.4.16, modified — the Note 1 to entry has been added.. Lineage source added as ISO/TS 19104:2008",
-      "review_status" : "final",
-      "id" : 10,
-      "review_decision" : "accepted",
+      "id" : "10",
       "entry_status" : "valid",
       "lineage_source_similarity" : 1,
       "terms" : [
@@ -207,22 +198,24 @@
             "type" : "expression"
          }
       ],
-      "authoritative_source" : {
-         "ref" : "ISO 1087-1:2000",
-         "clause" : "3.4.16, modified — the Note 1 to entry has been added.",
-         "link" : "https://www.iso.org/standard/20057.html"
-      },
+      "authoritative_source" : [
+         {
+            "ref" : "ISO 1087-1:2000",
+            "clause" : "3.4.16, modified — the Note 1 to entry has been added.",
+            "link" : "https://www.iso.org/standard/20057.html"
+         }
+      ],
       "review_decision_event" : "Publication of ISO 19104:2016",
       "notes" : [],
-      "definition" : "term som bedömts vara lämplig för ett visst begrepp och som används vid sidan av en rekommenderad term",
+      "definition" : ["term som bedömts vara lämplig för ett visst begrepp och som används vid sidan av en rekommenderad term"],
       "language_code" : "swe"
    },
-   "termid" : 10,
+   "termid" : "10",
    "rus" : {
-      "id" : 10,
+      "id" : "10",
       "entry_status" : "valid",
       "language_code" : "rus",
-      "definition" : "термин, оцененный по шкале рейтинга приемлемости термина как синоним предпочтительного термина",
+      "definition" : ["термин, оцененный по шкале рейтинга приемлемости термина как синоним предпочтительного термина"],
       "date_accepted" : "2008-11-15 00:00:00 +0800",
       "notes" : [],
       "release" : "2",
@@ -236,9 +229,11 @@
             "normative_status" : "preferred"
          }
       ],
-      "authoritative_source" : {
-         "ref" : "ISO 1087-1:2000",
-         "link" : "https://www.iso.org/standard/20057.html"
-      }
+      "authoritative_source" : [
+         {
+            "ref" : "ISO 1087-1:2000",
+            "link" : "https://www.iso.org/standard/20057.html"
+         }
+      ]
    }
 }

@@ -2,7 +2,7 @@
 #
 
 RSpec.describe ::Jekyll::Geolexica::ConceptSerializer do
-  let(:concept_10) { load_concept_fixture("concept-10.yaml") }
+  let(:concept_10) { load_concept_fixture("v1_glossary/concept-10.yaml") }
   let(:serializer_10) { described_class.new(concept_10, fake_site) }
 
   let(:fake_site) do

@@ -2,6 +2,7 @@
 #
 
 require "jekyll"
+require "glossarist"
 
 module Jekyll
   module Geolexica
