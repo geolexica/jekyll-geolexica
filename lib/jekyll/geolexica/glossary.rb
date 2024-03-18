@@ -25,6 +25,7 @@ module Jekyll
             "id" => managed_concept.uuid,
             "term" => managed_concept.default_designation,
             "termid" => managed_concept.id,
+            "status" => managed_concept.status,
           }.merge(managed_concept.to_h)
 
           managed_concept.localizations.each do |lang, localization|

@@ -45,6 +45,7 @@ RSpec.describe ::Jekyll::Geolexica::Glossary do
           "id" => "055c7785-e3c2-4df0-bcbc-83c1314864af",
           "term" => "association <UML>",
           "termid" => "SPP",
+          "status" => "valid",
           "data" => {
             "identifier" => "SPP",
             "localized_concepts" => {
