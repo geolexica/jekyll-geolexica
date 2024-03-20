@@ -9,15 +9,15 @@
 
   <title>{% include title.html %}</title>
 
-  <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="/images/android-chrome-192x192.png" sizes="192x192" />
-  <link rel="icon" type="image/png" href="/images/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16" />
-  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" href="{{ '/images/favicon-32x32.png' | relative_url }}" sizes="32x32" />
+  <link rel="icon" type="image/png" href="{{ '/images/android-chrome-192x192.png' | relative_url }}" sizes="192x192" />
+  <link rel="icon" type="image/png" href="{{ '/images/favicon-96x96.png' | relative_url }}" sizes="96x96" />
+  <link rel="icon" type="image/png" href="{{ '/images/favicon-16x16.png' | relative_url }}" sizes="16x16" />
+  <link rel="shortcut icon" href="{{ '/favicon.ico' | relative_url }}" />
 
   <meta name="msapplication-TileColor" content="#ffffff" />
-  <meta name="msapplication-TileImage" content="/images/mstile-144x144.png" />
-  <meta name="msapplication-config" content="/browserconfig.xml" />
+  <meta name="msapplication-TileImage" content="{{ '/images/mstile-144x144.png' | relative_url }}" />
+  <meta name="msapplication-config" content="{{ '/browserconfig.xml' | relative_url }}" />
   <meta name="theme-color" content="#ffffff" />
 
   <link rel="canonical" href="{{ page.url | replace: 'index.html', '' | relative_url }}" />
@@ -26,7 +26,7 @@
   {% if extra_stylesheets %}
     {% for ss in extra_stylesheets %}
       <link rel="stylesheet"
-        href="{{ ss.href }}"
+        href="{{ ss.href | relative_url }}"
         {% if ss.integrity %}integrity="{{ ss.integrity }}"{% endif %}
         {% if ss.crossorigin %}crossorigin="{{ ss.crossorigin }}"{% endif %}>
     {% endfor %}

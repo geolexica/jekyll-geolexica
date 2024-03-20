@@ -1,8 +1,8 @@
 ---
 ---
-importScripts('/assets/js/babel-polyfill.js');
+importScripts("{{ '/assets/js/babel-polyfill.js' | relative_url }}");
 
-const CONCEPTS_URL = '/api/concept-search-index.json';
+const CONCEPTS_URL = "{{ '/api/concept-search-index.json' | relative_url }}";
 
 /** For example:
  *    const LANGUAGES = [ 'eng', 'deu' ];

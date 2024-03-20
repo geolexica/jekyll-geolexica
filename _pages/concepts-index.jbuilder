@@ -12,8 +12,11 @@ for concept_page in site["concepts"]
   json.set! concept_page.termid.to_s do
     json.term concept_page.data["term"]
     json.termid concept_page.termid
-    json.set! "uri-html", concept_page.url
-    json.set! "uri-json", concept_json_page&.url
+    json.set! "uri-html", "#{site["baseurl"]}#{concept_page.url}"
+
+    if concept_json_page&.url
+      json.set! "uri-json", "#{site["baseurl"]}#{concept_json_page.url}"
+    end
   end
 end
 

@@ -9,7 +9,7 @@
     <header class="{% if site.has_brand_name %}brand{% endif %}">
       <div class="site-headline">
         <div class="parent-org-reference">
-          <a href="/" class="logo-link">
+          <a href="{{ '/' | relative_url }}" class="logo-link">
             <img src="{{ site.committee.main_logo.path | relative_url }}" alt="{{ site.committee.main_logo.alt_text }}">
           </a>
         </div>
@@ -124,7 +124,7 @@
     {% if extra_scripts %}
       {% for sc in extra_scripts %}
         <script
-          src="{{ sc.src }}"
+          src="{{ sc.src | relative_url }}"
           {% if sc.integrity %}integrity="{{ sc.integrity }}"{% endif %}
           {% if sc.crossorigin %}crossorigin="{{ sc.crossorigin }}"{% endif %}></script>
       {% endfor %}
