@@ -2,7 +2,7 @@
 ---
 (function () {
 
-  const searchWorker = new Worker('/assets/js/concept-search-worker.js');
+  const searchWorker = new Worker("{{ '/assets/js/concept-search-worker.js' | relative_url }}");
 
   /** For example:
    *    const LANGUAGES = [ 'eng', 'deu' ];
@@ -231,7 +231,7 @@
         );
       }
       headerEls.push(el('span', { key: 'title' }, 'Find a concept'));
-      headerEls.push(el('a', { key: 'link', href: '/concepts' }, '(browse all)'));
+      headerEls.push(el('a', { key: 'link', href: "{{ '/concepts' | relative_url }}" }, '(browse all)'));
 
       var els = [
         el('h2', { key: 'section-title', className: 'section-title' }, headerEls),
