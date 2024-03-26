@@ -33,7 +33,7 @@ module Jekyll
         page.output.gsub!(/stem:\[([^\]]*?)\]/) do
           ascii_equation = CGI.unescapeHTML(Regexp.last_match[1])
 
-          mathml_equation = Plurimath::Math
+          mathml_equation = ::Plurimath::Math
                               .parse(ascii_equation, :asciimath)
                               .to_mathml
 

@@ -3,6 +3,7 @@
 
 require "jekyll"
 require "glossarist"
+require "plurimath"
 
 module Jekyll
   module Geolexica
