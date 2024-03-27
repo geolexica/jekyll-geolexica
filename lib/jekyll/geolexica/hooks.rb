@@ -30,23 +30,37 @@ module Jekyll
       end
 
       def convert_math(page)
-        page.output.gsub!(/stem:\[([^\]]*?)\]/) do
-          ascii_equation = CGI.unescapeHTML(Regexp.last_match[1])
+        prefix_hash = {
+          asciimath: "stem",
+          latex: "latexmath",
+        }
 
-          mathml_equation = ::Plurimath::Math
-                              .parse(ascii_equation, :asciimath)
-                              .to_mathml
+        prefix_hash.each do |math_notation, prefix|
+          page.output.gsub!(/#{prefix}:(?<re>\[((?>[^\[\]]+)|\g<re>)*\])/) do
+            ascii_equation = CGI.unescapeHTML(Regexp.last_match[1])[1..-2]
 
-          # temporary hack to use display inline for math equations because
-          # currently there is no option to use display inline in plurimath
-          mathml_equation.gsub!("display=\"block\"", "display=\"inline\"")
+            mathml_equation = ::Plurimath::Math
+                                .parse(ascii_equation, math_notation)
+                                .to_mathml
 
-          # Removing newlines(\n) and escaping double quotes(")
-          # because they will cause parsing issues in json
-          mathml_equation.gsub!("\n", "").gsub!("\"", "\\\"") unless page.html?
-
-          mathml_equation
+            normalize_mathml(mathml_equation, page.html?)
+          end
         end
+      rescue => e
+        # Skipping broken formulas
+        Jekyll.logger.info(e.message)
+      end
+
+      def normalize_mathml(mathml_equation, is_html)
+        # temporary hack to use display inline for math equations because
+        # currently there is no option to use display inline in plurimath
+        mathml_equation = mathml_equation.gsub("display=\"block\"", "display=\"inline\"")
+
+        # Removing newlines(\n) and escaping double quotes(")
+        # because they will cause parsing issues in json
+        mathml_equation = mathml_equation.gsub("\n", "").gsub("\"", "\\\"") unless is_html
+
+        mathml_equation
       end
 
       def hook event, target, action
