@@ -13,7 +13,22 @@
     };
 
     var replace_math_symb = function(s){
-      return s.replace(/(`[^`]+`)/g, '<<math_symbol>>');
+        // replace mathjax
+        mathjax_containers = s.querySelectorAll('math, mjx-container');
+
+        if(mathjax_containers.length > 0) {
+            s = s.cloneNode(true);
+            s.querySelectorAll('math, mjx-container').forEach(container => {
+                container.replaceWith('<<math_symbol>>');
+            });
+        }
+
+        text = s.innerText;
+
+        // replace asciimath
+        text = text.replace(/(`[^`]+`)/g, '<<math_symbol>>');
+
+        return text;
     };
 
     var copyBtn = d.getElementById('engTermCopy');
@@ -43,7 +58,7 @@
         for (var _elm of elmsToCopy) {
             if (_elm.innerText.trim().length > 0) {
                 // textToCopy = textToCopy + _elm.innerText + '\r\n\r\n';
-                textToCopy = textToCopy + replace_math_symb(_elm.innerText) + '\r\n\r\n';
+                textToCopy = textToCopy + replace_math_symb(_elm) + '\r\n\r\n';
             };
         };
 
