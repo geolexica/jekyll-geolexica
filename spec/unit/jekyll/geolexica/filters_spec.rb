@@ -184,6 +184,33 @@ RSpec.describe Jekyll::Geolexica::Filters do
     end
   end
 
+  describe "#get_all_authoritative_sources" do
+    subject { wrapper.method(:get_all_authoritative_sources) }
+
+    it "returns all authoritative sources if available in given sources" do
+      sources = [
+        { "type" => "authoritative" },
+        { "type" => "authoritative" },
+        { "type" => "authoritative" },
+        { "type" => "lineage" },
+      ]
+
+      expect(subject.call(sources)).to eq(sources[0..-2])
+    end
+
+    it "returns empty array if authoritative source is not in given sources" do
+      sources = [
+        { "type" => "lineage" },
+      ]
+
+      expect(subject.call(sources)).to eq([])
+    end
+
+    it "returns nil if given sources are nil" do
+      expect(subject.call(nil)).to eq(nil)
+    end
+  end
+
   describe "with term" do
     let(:term) do
       {

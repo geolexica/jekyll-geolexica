@@ -3,6 +3,7 @@
 {%- assign term_status = english.entry_status -%}
 {%- assign classification = english.terms.first.normative_status -%}
 {%- assign english_authoritative_source = english.sources | get_authoritative -%}
+{%- assign english_authoritative_sources = english.sources | get_all_authoritative_sources -%}
 {%- assign localized_authoritative_source = localized_term.sources | get_authoritative -%}
 
 <article
@@ -114,7 +115,7 @@
     <p class="origin localized">
       {% if lang == "eng" %}
         [SOURCE:
-          {% for source in english.sources %}
+          {% for source in english_authoritative_sources %}
             {{ source | display_authoritative_source }}{% unless forloop.last %};{% endunless %}
           {%- endfor -%}
         ]
