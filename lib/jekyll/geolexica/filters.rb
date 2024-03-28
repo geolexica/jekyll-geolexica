@@ -204,6 +204,10 @@ module Jekyll
       def get_authoritative(sources)
         sources&.find { |source| source["type"] == "authoritative" }
       end
+
+      def get_all_authoritative_sources(sources)
+        sources&.select { |source| source["type"] == "authoritative" }
+      end
     end
   end
 end
