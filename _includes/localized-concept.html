@@ -120,7 +120,7 @@
           {%- endfor -%}
         ]
       {% else %}
-        ORIGIN:  <a href="/registers/#language-{{ lang }}">{{ site.data.info.languages[lang].register-name }}</a>
+        ORIGIN:  <a href="{{ '/registers' | relative_url }}/#language-{{ lang }}">{{ site.data.info.languages[lang].register-name }}</a>
         (last updated: {{ site.data.info.languages[lang].date-of-last-change }})
       {% endif %}
     </p>
