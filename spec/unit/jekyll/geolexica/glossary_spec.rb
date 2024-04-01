@@ -81,10 +81,19 @@ RSpec.describe ::Jekyll::Geolexica::Glossary do
             "sources" => [
               {
                 "origin" => {
-                  "link" => "https://www.iso.org/standard/32620.html"
+                  "link" => "https://www.iso.org/standard/32620.html",
+                  "ref" => "ISO/IEC 19501"
                 },
-                "type" => "authoritative"
-              }
+                "status" => "restyle",
+                "type" => "authoritative",
+              },
+              {
+                "origin" => {
+                  "ref" => "ISO/TS 19103:2005 ,4.2.3"
+                },
+                "status" => "identical",
+                "type" => "lineage",
+              },
             ],
             "terms" => [
               {
