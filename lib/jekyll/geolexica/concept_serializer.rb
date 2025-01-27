@@ -8,7 +8,7 @@ module Jekyll
     class ConceptSerializer < SimpleDelegator
       include Configuration
 
-      NON_LANGUAGE_KEYS = %w[term termid]
+      NON_LANGUAGE_KEYS = %w[term termid].freeze
 
       # A Jekyll::Site instance.
       attr_reader :site

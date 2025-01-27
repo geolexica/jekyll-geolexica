@@ -13,7 +13,9 @@ RSpec.describe Jekyll::Geolexica::Filters do
 
     # Stub stock Liquid filter.
     before do
-      def wrapper.escape_once(str); "!#{str}!"; end
+      def wrapper.escape_once(str)
+        "!#{str}!"
+      end
     end
 
     let(:link) { "http://standards.example.test/a#chapter" }

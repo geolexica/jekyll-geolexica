@@ -40,13 +40,13 @@ module Jekyll
             ascii_equation = CGI.unescapeHTML(Regexp.last_match[1])[1..-2]
 
             mathml_equation = ::Plurimath::Math
-                                .parse(ascii_equation, math_notation)
-                                .to_mathml
+              .parse(ascii_equation, math_notation)
+              .to_mathml
 
             normalize_mathml(mathml_equation, page.html?)
           end
         end
-      rescue => e
+      rescue StandardError => e
         # Skipping broken formulas
         Jekyll.logger.info(e.message)
       end
@@ -54,16 +54,20 @@ module Jekyll
       def normalize_mathml(mathml_equation, is_html)
         # temporary hack to use display inline for math equations because
         # currently there is no option to use display inline in plurimath
-        mathml_equation = mathml_equation.gsub("display=\"block\"", "display=\"inline\"")
+        mathml_equation = mathml_equation.gsub('display="block"',
+                                               'display="inline"')
 
         # Removing newlines(\n) and escaping double quotes(")
         # because they will cause parsing issues in json
-        mathml_equation = mathml_equation.gsub("\n", "").gsub("\"", "\\\"") unless is_html
+        unless is_html
+          mathml_equation = mathml_equation.delete("\n").gsub('"',
+                                                              '\"')
+        end
 
         mathml_equation
       end
 
-      def hook event, target, action
+      def hook(event, target, action)
         Jekyll::Hooks.register target, event, &method(action)
       end
     end

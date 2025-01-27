@@ -11,12 +11,16 @@ module Jekyll
       #
       # TODO Maybe support string inputs.
       def display_authoritative_source(input)
-        ref, clause, link = input["origin"].values_at("ref", "clause", "link") rescue nil
+        ref, clause, link = begin
+          input["origin"].values_at("ref", "clause", "link")
+        rescue StandardError
+          nil
+        end
 
         return "" if ref.nil? && link.nil?
 
         ref_caption = escape_once(ref || link)
-        ref_part = link ? %[<a href="#{link}">#{ref_caption}</a>] : ref_caption
+        ref_part = link ? %(<a href="#{link}">#{ref_caption}</a>) : ref_caption
 
         clause_part = clause && escape_once(clause)
 
@@ -25,7 +29,7 @@ module Jekyll
         modification = input["modification"]
         return source unless modification
 
-        "#{source}, #{input["status"] || "modified"} -- #{modification}"
+        "#{source}, #{input['status'] || 'modified'} -- #{modification}"
       end
 
       def concepts_url(base_url)
@@ -86,8 +90,12 @@ module Jekyll
           link = bib_ref["link"]
           docidentifier = bib_ref["reference"]
         else
-          link = bib_ref["link"].detect { |l| l["type"] == "src" }["content"]["uri_string"]
-          docidentifier = bib_ref["docidentifier"].detect { |d| d["primary"] }["id"]
+          link = bib_ref["link"].detect do |l|
+            l["type"] == "src"
+          end["content"]["uri_string"]
+          docidentifier = bib_ref["docidentifier"].detect do |d|
+            d["primary"]
+          end["id"]
         end
 
         link_tag(link, docidentifier)
@@ -137,7 +145,8 @@ module Jekyll
         return {} if glossary_path.nil? || glossary_path.empty?
 
         @images_metadata ||= YAML.safe_load_file(
-          File.expand_path("#{glossary_path}/images_metadata.yaml", site.source),
+          File.expand_path("#{glossary_path}/images_metadata.yaml",
+                           site.source),
           permitted_classes: [Time],
         )
       end

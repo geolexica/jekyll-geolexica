@@ -1,7 +1,7 @@
 # (c) Copyright 2021 Ribose Inc.
 #
 
-# TODO Extract that to a separate gem.
+# TODO: Extract that to a separate gem.
 
 require "jbuilder"
 
@@ -13,7 +13,7 @@ module Jekyll
         wrapper = JbuilderWrapper.new(context)
         wrapper.eval_source(source)
         wrapper.target!
-      rescue
+      rescue StandardError
         Jekyll.logger.error $!.detailed_message
         raise
       end
@@ -39,9 +39,7 @@ module Jekyll
           @builder
         end
 
-        def context
-          @context
-        end
+        attr_reader :context
 
         def page
           @context["page"]
@@ -53,7 +51,7 @@ module Jekyll
 
         def eval_source(source)
           instance_eval(source)
-        rescue
+        rescue StandardError
           raise Error.new(source)
         end
 

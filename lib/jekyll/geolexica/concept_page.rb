@@ -18,7 +18,7 @@ module Jekyll
       end
 
       def type
-        self.collection_name.to_sym
+        collection_name.to_sym
       end
 
       protected
@@ -171,7 +171,6 @@ module Jekyll
           "/api/concepts/#{termid}.yaml"
         end
       end
-
     end
   end
 end

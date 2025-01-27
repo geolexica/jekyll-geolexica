@@ -28,6 +28,7 @@ module Jekyll
       def make_pages
         all_pages_pathnames.each do |p|
           next if skip_page?(p)
+
           add_page Page.new(site, base_dir, p.dirname.to_s, p.basename.to_s)
         end
       end
@@ -35,9 +36,9 @@ module Jekyll
       # Lists all regular files in +base_dir+ recursively, and returns them
       # as an Array of Pathname instances, which are relative to +base_dir+.
       def all_pages_pathnames
-        Dir.glob("**/*", base: base_dir).
-          map { |path| Pathname.new(path) }.
-          reject { |pathname| pathname.expand_path(base_dir).directory? }
+        Dir.glob("**/*", base: base_dir)
+          .map { |path| Pathname.new(path) }
+          .reject { |pathname| pathname.expand_path(base_dir).directory? }
       end
 
       def base_dir
@@ -46,12 +47,12 @@ module Jekyll
 
       def skip_page?(pathname)
         (pathname.extname == ".ttl" && !output_turtle?) ||
-        (pathname.extname == ".json" && !output_json?) ||
-        false
+          (pathname.extname == ".json" && !output_json?) ||
+          false
       end
 
       def add_page *pages
-        self.generated_pages.concat(pages)
+        generated_pages.concat(pages)
       end
     end
   end

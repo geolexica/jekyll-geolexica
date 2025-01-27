@@ -17,19 +17,20 @@ module Jekyll
       end
 
       def load_glossary
-        Jekyll.logger.info('Geolexica:', 'Loading concepts')
+        Jekyll.logger.info("Geolexica:", "Loading concepts")
         @collection.load_from_files(glossary_path)
 
         @collection.each do |managed_concept|
           concept_hash = {
             "id" => managed_concept.uuid,
             "term" => managed_concept.default_designation,
-            "termid" => managed_concept.id,
+            "termid" => managed_concept.data.id,
             "status" => managed_concept.status,
-          }.merge(managed_concept.to_h)
+          }.merge(managed_concept.to_yaml_hash)
 
           managed_concept.localizations.each do |lang, localization|
-            concept_hash[lang] = localization.to_h["data"]
+            concept_hash[lang] =
+              localization.to_yaml_hash["data"].merge({ "status" => localization.entry_status })
           end
 
           preprocess_concept_hash(concept_hash)
@@ -38,7 +39,7 @@ module Jekyll
       end
 
       def store(concept)
-        super(concept.data['termid'], concept)
+        super(concept.data["termid"], concept)
       end
 
       def language_statistics
@@ -48,7 +49,7 @@ module Jekyll
       # Defines how Glossary is exposed in Liquid templates.
       def to_liquid
         {
-          'language_statistics' => language_statistics
+          "language_statistics" => language_statistics,
         }
       end
 
@@ -59,9 +60,9 @@ module Jekyll
 
       def calculate_language_statistics
         unsorted = each_value.lazy
-                             .flat_map { |concept| term_languages & concept.data.keys }
-                             .group_by(&:itself)
-                             .transform_values(&:count)
+          .flat_map { |concept| term_languages & concept.data.keys }
+          .group_by(&:itself)
+          .transform_values(&:count)
 
         # This is not crucial, but gives nicer output, and ensures that
         # all +term_languages+ are present.
@@ -80,7 +81,7 @@ module Jekyll
         end
 
         def termid
-          data['termid']
+          data["termid"]
         end
 
         class LiquidCompatibleHash < Hash
