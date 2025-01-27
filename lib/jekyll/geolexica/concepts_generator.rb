@@ -30,21 +30,39 @@ module Jekyll
       def make_pages
         site.glossary.each_concept do |concept|
           Jekyll.logger.debug("Geolexica:",
-            "building pages for concept #{concept.termid}")
+                              "building pages for concept #{concept.termid}")
           concept.pages.replace({
-            html: (ConceptPage::HTML.new(site, concept) if output_html?),
-            json: (ConceptPage::JSON.new(site, concept) if output_json?),
-            jsonld: (ConceptPage::JSONLD.new(site, concept) if output_jsonld?),
-            tbx: (ConceptPage::TBX.new(site, concept) if output_tbx?),
-            turtle: (ConceptPage::Turtle.new(site, concept) if output_turtle?),
-            yaml: (ConceptPage::YAML.new(site, concept) if output_yaml?),
-          })
+                                  html: (if output_html?
+                                           ConceptPage::HTML.new(site,
+                                                                 concept)
+                                         end),
+                                  json: (if output_json?
+                                           ConceptPage::JSON.new(site,
+                                                                 concept)
+                                         end),
+                                  jsonld: (if output_jsonld?
+                                             ConceptPage::JSONLD.new(site,
+                                                                     concept)
+                                           end),
+                                  tbx: (if output_tbx?
+                                          ConceptPage::TBX.new(site,
+                                                               concept)
+                                        end),
+                                  turtle: (if output_turtle?
+                                             ConceptPage::Turtle.new(site,
+                                                                     concept)
+                                           end),
+                                  yaml: (if output_yaml?
+                                           ConceptPage::YAML.new(site,
+                                                                 concept)
+                                         end),
+                                })
           add_page(*concept.pages.values.compact)
         end
       end
 
       def sort_pages
-        generated_pages.sort_by! { |p| p.termid }
+        generated_pages.sort_by!(&:termid)
       end
 
       def initialize_collections
@@ -53,6 +71,7 @@ module Jekyll
           concepts_ttl concepts_tbx concepts_yaml
         ].each do |label|
           next if site.collections[label]
+
           site.config["collections"][label] ||= { "output" => true }
           site.collections[label] = Jekyll::Collection.new(site, label)
         end
@@ -65,7 +84,7 @@ module Jekyll
       end
 
       def add_page *pages
-        self.generated_pages.concat(pages)
+        generated_pages.concat(pages)
       end
 
       def find_page(name)

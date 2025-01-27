@@ -15,15 +15,15 @@ RSpec.describe ::Jekyll::Geolexica::Glossary do
     subject { instance.method(:language_statistics) }
 
     let(:fake_config) do
-      {"geolexica" => { "term_languages" => %w[eng deu pol] }}
+      { "geolexica" => { "term_languages" => %w[eng deu pol] } }
     end
 
     before do
       add_concepts(
-        {"termid" => 1, "eng" => {}},
-        {"termid" => 2, "eng" => {}, "pol" => {}, },
-        {"termid" => 3, "eng" => {}, "deu" => {}, },
-        {"termid" => 4, "eng" => {}, "deu" => {}, },
+        { "termid" => 1, "eng" => {} },
+        { "termid" => 2, "eng" => {}, "pol" => {} },
+        { "termid" => 3, "eng" => {}, "deu" => {} },
+        { "termid" => 4, "eng" => {}, "deu" => {} },
       )
     end
 
@@ -32,7 +32,7 @@ RSpec.describe ::Jekyll::Geolexica::Glossary do
       expect(retval).to be_kind_of(Hash)
       expect(retval.keys).to all be_kind_of(String) & have_attributes(size: 3)
       expect(retval.values).to all be_kind_of(Integer) & (be >= 0)
-      expect(retval).to eq({"eng" => 4, "deu" => 2, "pol" => 1})
+      expect(retval).to eq({ "eng" => 4, "deu" => 2, "pol" => 1 })
     end
   end
 
@@ -49,62 +49,13 @@ RSpec.describe ::Jekyll::Geolexica::Glossary do
           "data" => {
             "identifier" => "SPP",
             "localized_concepts" => {
-              "eng" => "04e539b2-4557-4d05-a603-9881ed6951c6"
-            }
+              "eng" => "04e539b2-4557-4d05-a603-9881ed6951c6",
+            },
           },
           "eng" => {
-            "dates" => [
-              {
-                "date" => Time.parse("2005-07-15 00:00:00 +05:00"),
-                "type" => "accepted"
-              },
-              {
-                "date" => Time.parse("2015-07-01 00:00:00 +05:00"),
-                "type" => "amended"
-              }
-            ],
-            "definition" => [
-              {
-                "content" => "semantic relationship between two or more classifiers that specifies connections among their instances"
-              }
-            ],
-            "examples" => [
-              { "content" => "0" }
-            ],
-            "id" => "17",
-            "notes" => [
-              {
-                "content" => "A binary association is an association among exactly two classifiers (including the possibility of an association from a classifier to itself)."
-              }
-            ],
-            "release" => "-1",
-            "sources" => [
-              {
-                "origin" => {
-                  "link" => "https://www.iso.org/standard/32620.html",
-                  "ref" => "ISO/IEC 19501"
-                },
-                "status" => "restyle",
-                "type" => "authoritative",
-              },
-              {
-                "origin" => {
-                  "ref" => "ISO/TS 19103:2005 ,4.2.3"
-                },
-                "status" => "identical",
-                "type" => "lineage",
-              },
-            ],
-            "terms" => [
-              {
-                "type" => "expression", "designation" => "association <UML>"
-              }
-            ],
-            "language_code" => "eng",
-            "entry_status" => "superseded",
-            "review_date" => Time.parse("2009-08-31 00:00:00 +06:00"),
-            "review_decision_date" => Time.parse("2015-07-01 00:00:00 +05:00"),
-            "review_decision_event" => "Publication of ISO 19150-2:2015(E)",
+            "dates" => [{ "date" => "2005-07-15T00:00:00+05:00", "type" => "accepted" },
+                        { "date" => "2015-07-01T00:00:00+05:00",
+                          "type" => "amended" }], "definition" => [{ "content" => "semantic relationship between two or more classifiers that specifies connections among their instances" }], "entry_status" => "superseded", "examples" => [{ "content" => "0" }], "id" => "17", "language_code" => "eng", "notes" => [{ "content" => "A binary association is an association among exactly two classifiers (including the possibility of an association from a classifier to itself)." }], "release" => "-1", "review_date" => "2009-08-31T00:00:00+06:00", "review_decision_date" => "2015-07-01T00:00:00+05:00", "review_decision_event" => "Publication of ISO 19150-2:2015(E)", "sources" => [{ "origin" => { "link" => "https://www.iso.org/standard/32620.html", "ref" => "ISO/IEC 19501" }, "status" => "restyle", "type" => "authoritative" }, { "origin" => { "ref" => "ISO/TS 19103:2005 ,4.2.3" }, "status" => "identical", "type" => "lineage" }], "status" => "superseded", "terms" => [{ "designation" => "association <UML>", "type" => "expression" }]
           },
         }
       end
@@ -126,380 +77,59 @@ RSpec.describe ::Jekyll::Geolexica::Glossary do
     end
   end
 
-  context "Glossarist V1 concepts" do
+  context "Glossarist V2 concepts" do
     describe "#load_glossary" do
       let(:load_glossary) { subject.send(:load_glossary) }
 
       before(:each) do
-        allow(subject).to receive(:glossary_path).and_return(fixture_path("v1_glossary"))
+        allow(subject).to receive(:glossary_path).and_return(fixture_path("v2_glossary"))
       end
 
       let(:localized_concepts) do
-        {
-          "eng" => "1296fc23-5ab7-52c2-9219-09cc3b04b1e0",
-          "ara" => "ea6a9deb-46b5-5f36-80d9-cbdc303d7d51",
-          "dan" => "a0e49de6-2818-5b4a-9ca4-ce8d19993457",
-          "ger" => "061ec573-6c10-5f70-8b01-062aa28161e4",
-          "kor" => "436e863c-80d8-5a8b-ac25-e432fac10f5c",
-          "rus" => "a2c61508-0c23-5c59-be68-efc09c7fe2eb",
-          "spa" => "b70b2224-9a4f-5583-bd2b-736087c833b5",
-          "swe" => "a8a854e0-e125-50bd-ac2a-1d95760eb0b5",
-        }
+        { "eng" => "f97c8700-4637-5d81-875d-4db604cf319b", "ara" => "48aee9d4-b7ce-5aac-b00f-d4170673471b",
+          "kor" => "fc3e9fa0-a65f-593e-bcd5-a63469d9fa95", "rus" => "4b726987-275c-5110-b42b-8fbbf0239d9f", "spa" => "e800bb84-7e77-56fe-9963-1d049e8553b1" }
       end
 
       let(:eng_concept) do
-        {
-          "dates" => [
-            {
-              "date" => Time.parse("2008-11-15 00:00:00 +08:00"),
-              "type" => "accepted",
-            },
-          ],
-          "definition" => [
-            {
-              "content" => "term rated according to the scale of the term acceptability rating as a synonym for a preferred term",
-            },
-          ],
-          "examples" => [],
-          "id" => "10",
-          "lineage_source_similarity" => 1,
-          "notes" => [],
-          "release" => "2",
-          "sources" => [
-            {
-              "origin" => {
-                "ref" => "ISO 1087-1:2000",
-                "clause" => "3.4.16, modified — the Note 1 to entry has been added.",
-                "link" => "https://www.iso.org/standard/20057.html"
-              },
-              "type" => "authoritative",
-            },
-          ],
-          "terms" => [
-            {
-              "type" => "expression",
-              "normative_status" => "preferred",
-              "designation" => "admitted term",
-            },
-          ],
-          "language_code" => "eng",
-          "entry_status" => "valid",
-          "review_date" => Time.parse("2013-01-29 00:00:00 +08:00"),
-          "review_decision_date" => Time.parse("2016-10-01 00:00:00 +08:00"),
-          "review_decision_event" => "Publication of ISO 19104:2016",
-        }
+        { "dates" => [{ "date" => "2007-09-01T00:00:00+05:00", "type" => "accepted" }],
+          "definition" => [{ "content" => "application schema written in UML in accordance with ISO 19109" }], "entry_status" => "valid", "examples" => [], "id" => "699", "language_code" => "eng", "notes" => [], "release" => "1.0", "review_date" => "2020-01-09T00:00:00+05:00", "review_decision_date" => "2020-01-09T00:00:00+05:00", "review_decision_event" => "Publication of ISO 19136-1:2020(E)", "sources" => [{ "origin" => { "clause" => "3.1.61", "link" => "https://www.iso.org/standard/75676.html", "ref" => "ISO 19136-1:2020" }, "type" => "authoritative" }, { "origin" => { "ref" => "ISO 19136:2007" }, "status" => "unspecified", "type" => "lineage" }], "status" => "valid", "terms" => [{ "designation" => "UML application schema", "normative_status" => "preferred", "type" => "expression" }] }
       end
 
       let(:ara_concept) do
-        {
-          "dates" => [
-            {
-              "date" => Time.parse("2008-11-15 00:00:00 +08:00"),
-              "type" => "accepted",
-            },
-          ],
-          "definition" => [
-            {
-              "content" => "مصطلح صنف وفقا لمقياس تصنيف قبول المصطلحات كمرادف للمصطلح المفضل"
-            }
-          ],
-          "examples" => [],
-          "id" => "10",
-          "lineage_source_similarity" => 1,
-          "notes" => [],
-          "release" => "2",
-          "sources" => [
-            {
-              "origin" => {
-                "ref" => "ISO 1087-1:2000",
-                "clause" => "3.4.16, modified — the Note 1 to entry has been added.",
-                "link" => "https://www.iso.org/standard/20057.html",
-              },
-              "type" => "authoritative",
-            }
-          ],
-          "terms" => [
-            {
-              "type" => "expression",
-              "normative_status" => "preferred",
-              "designation" => "مصطلح معترف به",
-            },
-          ],
-          "language_code" => "ara",
-          "entry_status" => "valid",
-          "review_date" => Time.parse("2013-01-29 00:00:00 +08:00"),
-          "review_decision_date" => Time.parse("2016-10-01 00:00:00 +08:00"),
-          "review_decision_event" => "Publication of ISO 19104:2016",
-        }
-      end
-
-      let(:dan_concept) do
-        {
-          "dates" => [
-            {
-              "date" => Time.parse("2008-11-15 00:00:00 +08:00"),
-              "type" => "accepted",
-            },
-          ],
-          "definition" => [
-            {
-              "content" => "term, klassificeret efter en skala for tilladte termer, anvendt som synonym for en foretrukket term",
-            },
-          ],
-          "examples" => [],
-          "id" => "10",
-          "lineage_source_similarity" => 1,
-          "notes" => [],
-          "release" => "2",
-          "sources" => [
-            {
-              "origin" => {
-                "ref" => "ISO 1087-1:2000",
-                "clause" => "3.4.16, modified — the Note 1 to entry has been added.",
-                "link" => "https://www.iso.org/standard/20057.html",
-              },
-              "type" => "authoritative",
-            },
-          ],
-          "terms" => [
-            {
-              "type" => "expression",
-              "normative_status" => "preferred",
-              "designation" => "tilladt term",
-            },
-          ],
-          "language_code" => "dan",
-          "entry_status" => "valid",
-          "review_date" => Time.parse("2013-01-29 00:00:00 +08:00"),
-          "review_decision_date" => Time.parse("2016-10-01 00:00:00 +08:00"),
-          "review_decision_event" => "Publication of ISO 19104:2016",
-        }
-      end
-
-      let(:ger_concept) do
-        {
-          "dates" => [
-            {
-              "date" => Time.parse("2008-11-15 00:00:00 +08:00"),
-              "type" => "accepted",
-            },
-          ],
-          "definition" => [],
-          "examples" => [],
-          "id" => "10",
-          "lineage_source_similarity" => 1,
-          "notes" => [],
-          "release" => "2",
-          "sources" => [
-            {
-              "origin" => {
-                "ref" => "ISO 1087-1:2000",
-                "clause" => "3.4.16, modified — the Note 1 to entry has been added.",
-                "link" => "https://www.iso.org/standard/20057.html"
-              },
-              "type" => "authoritative",
-            },
-          ],
-          "terms" => [
-            {
-              "type" => "expression",
-              "normative_status" => "preferred",
-              "designation" => "zugelassener Begriff",
-            },
-          ],
-          "language_code" => "ger",
-          "entry_status" => "valid",
-          "review_date" => Time.parse("2013-01-29 00:00:00 +08:00"),
-          "review_decision_date" => Time.parse("2016-10-01 00:00:00 +08:00"),
-          "review_decision_event" => "Publication of ISO 19104:2016",
-        }
+        { "dates" => [{ "date" => "2007-09-01T00:00:00+05:00", "type" => "accepted" }],
+          "definition" => [{ "content" => "مخطط تطبيقي مكتوب بلغة UML وفقا لمواصفة آيزو القياسية 19109" }], "entry_status" => "valid", "examples" => [], "id" => "699", "language_code" => "ara", "notes" => [], "release" => "1.0", "review_date" => "2020-01-09T00:00:00+05:00", "review_decision_date" => "2020-01-09T00:00:00+05:00", "review_decision_event" => "Publication of ISO 19136-1:2020(E)", "sources" => [{ "origin" => { "clause" => "3.1.61", "link" => "https://www.iso.org/standard/75676.html", "ref" => "ISO 19136-1:2020" }, "type" => "authoritative" }, { "origin" => { "ref" => "ISO 19136:2007" }, "status" => "unspecified", "type" => "lineage" }], "status" => "valid", "terms" => [{ "designation" => "مخطط تطبيق UML", "normative_status" => "preferred", "type" => "expression" }] }
       end
 
       let(:kor_concept) do
-        {
-          "dates" => [
-            {
-              "date" => Time.parse("2008-11-15 00:00:00 +08:00"),
-              "type" => "accepted",
-            },
-          ],
-          "definition" => [
-            {
-              "content" => "상용 용어의 동의어로써 용어 수용가능성 등급체계에 의거하여 등급이 부여된 용어",
-            },
-          ],
-          "examples" => [],
-          "id" => "10",
-          "lineage_source_similarity" => 1,
-          "notes" => [],
-          "release" => "2",
-          "sources" => [
-            {
-              "origin" => {
-                "ref" => "ISO 1087-1:2000",
-                "clause" => "3.4.16, modified — the Note 1 to entry has been added.",
-                "link" => "https://www.iso.org/standard/20057.html",
-              },
-              "type" => "authoritative",
-            },
-          ],
-          "terms" => [
-            {
-              "type" => "expression",
-              "normative_status" => "preferred",
-              "designation" => "승인 용어",
-            },
-          ],
-          "language_code" => "kor",
-          "entry_status" => "valid",
-          "review_date" => Time.parse("2013-01-29 00:00:00 +08:00"),
-          "review_decision_date" => Time.parse("2016-10-01 00:00:00 +08:00"),
-          "review_decision_event" => "Publication of ISO 19104:2016",
-        }
+        { "dates" => [{ "date" => "2007-09-01T00:00:00+05:00", "type" => "accepted" }],
+          "definition" => [{ "content" => "KS X ISO 19109에 따라 UML로 기술된 응용 스키마" }], "entry_status" => "valid", "examples" => [], "id" => "699", "language_code" => "kor", "notes" => [], "release" => "1.0", "review_date" => "2020-01-09T00:00:00+05:00", "review_decision_date" => "2020-01-09T00:00:00+05:00", "review_decision_event" => "Publication of ISO 19136-1:2020(E)", "sources" => [{ "origin" => { "clause" => "3.1.61", "link" => "https://www.iso.org/standard/75676.html", "ref" => "ISO 19136-1:2020" }, "type" => "authoritative" }, { "origin" => { "ref" => "ISO 19136:2007" }, "status" => "unspecified", "type" => "lineage" }], "status" => "valid", "terms" => [{ "designation" => "UML 응용 스키마", "normative_status" => "preferred", "type" => "expression" }] }
       end
 
       let(:rus_concept) do
-        {
-          "dates" => [
-            {
-              "date" => Time.parse("2008-11-15 00:00:00 +08:00"),
-              "type" => "accepted",
-            },
-          ],
-          "definition" => [
-            {
-              "content" => "термин, оцененный по шкале рейтинга приемлемости термина как синоним предпочтительного термина",
-            },
-          ],
-          "examples" => [],
-          "id" => "10",
-          "lineage_source_similarity" => 1,
-          "notes" => [],
-          "release" => "2",
-          "sources" => [
-            {
-              "origin" => {
-                "ref" => "ISO 1087-1:2000",
-                "link" => "https://www.iso.org/standard/20057.html",
-              },
-              "type" => "authoritative",
-            },
-          ],
-          "terms" => [
-            {
-              "type" => "expression",
-              "normative_status" => "preferred",
-              "designation" => "допустимый термин",
-            },
-          ],
-          "language_code" => "rus",
-          "entry_status" => "valid",
-        }
+        { "dates" => [{ "date" => "2007-09-01T00:00:00+05:00", "type" => "accepted" }],
+          "definition" => [{ "content" => "схема приложения на UML, разработанная в соответствии с ISO 19109" }], "entry_status" => "valid", "examples" => [], "id" => "699", "language_code" => "rus", "notes" => [], "release" => "1.0", "review_date" => "2020-01-09T00:00:00+05:00", "review_decision_date" => "2020-01-09T00:00:00+05:00", "review_decision_event" => "Publication of ISO 19136-1:2020(E)", "sources" => [{ "origin" => { "clause" => "3.1.61", "link" => "https://www.iso.org/standard/75676.html", "ref" => "ISO 19136-1:2020" }, "type" => "authoritative" }, { "origin" => { "ref" => "ISO 19136:2007" }, "status" => "unspecified", "type" => "lineage" }], "status" => "valid", "terms" => [{ "designation" => "схема приложения UML", "normative_status" => "preferred", "type" => "expression" }] }
       end
 
       let(:spa_concept) do
-        {
-          "dates" => [
-            {
-              "date" => Time.parse("2008-11-15 00:00:00 +08:00"),
-              "type" => "accepted",
-            },
-          ],
-          "definition" => [
-            {
-              "content" => "término clasificado de acuerdo a la escala de aceptanción como un sinónimo de un término preferente",
-            },
-          ],
-          "examples" => [],
-          "id" => "10",
-          "lineage_source_similarity" => 1,
-          "notes" => [],
-          "release" => "2",
-          "sources" => [
-            {
-              "origin" => {
-                "ref" => "ISO 1087-1:2000",
-                "clause" => "3.4.16, modified — the Note 1 to entry has been added.",
-                "link" => "https://www.iso.org/standard/20057.html",
-              },
-              "type" => "authoritative",
-            },
-          ],
-          "terms" => [
-            {
-              "type" => "expression",
-              "normative_status" => "preferred",
-              "designation" => "término admitido",
-            },
-          ],
-          "language_code" => "spa",
-          "entry_status" => "valid",
-          "review_date"=>Time.parse("2013-01-29 00:00:00 +08:00"),
-          "review_decision_date"=>Time.parse("2016-10-01 00:00:00 +08:00"),
-          "review_decision_event" => "Publication of ISO 19104:2016",
-        }
-      end
-
-      let(:swe_concept) do
-        {
-          "dates" => [
-            {
-              "date"=>Time.parse("2008-11-15 00:00:00 +08:00"),
-              "type" => "accepted",
-            },
-          ],
-          "definition" => [
-            {
-              "content" => "term som bedömts vara lämplig för ett visst begrepp och som används vid sidan av en rekommenderad term",
-            },
-          ],
-          "examples" => [],
-          "id" => "10",
-          "lineage_source_similarity" => 1,
-          "notes" => [],
-          "release" => "2",
-          "sources" => [
-            {
-              "origin" => {
-                "ref" => "ISO 1087-1:2000",
-                "clause" => "3.4.16, modified — the Note 1 to entry has been added.",
-                "link" => "https://www.iso.org/standard/20057.html",
-              },
-              "type" => "authoritative",
-            },
-          ],
-          "terms" => [
-            {
-              "type" => "expression",
-              "normative_status" => "preferred",
-              "designation" => "tillåten term",
-            },
-          ],
-          "language_code" => "swe",
-          "entry_status" => "valid",
-          "review_date" => Time.parse("2013-01-29 00:00:00 +08:00"),
-          "review_decision_date" => Time.parse("2016-10-01 00:00:00 +08:00"),
-          "review_decision_event" => "Publication of ISO 19104:2016",
-        }
+        { "dates" => [{ "date" => "2007-09-01T00:00:00+05:00", "type" => "accepted" }],
+          "definition" => [{ "content" => "esquema de aplicación escrito en UML de acuerdo  a ISO 19109" }], "entry_status" => "valid", "examples" => [], "id" => "699", "language_code" => "spa", "notes" => [], "release" => "1.0", "review_date" => "2020-01-09T00:00:00+05:00", "review_decision_date" => "2020-01-09T00:00:00+05:00", "review_decision_event" => "Publication of ISO 19136-1:2020(E)", "sources" => [{ "origin" => { "clause" => "3.1.61", "link" => "https://www.iso.org/standard/75676.html", "ref" => "ISO 19136-1:2020" }, "type" => "authoritative" }, { "origin" => { "ref" => "ISO 19136:2007" }, "status" => "unspecified", "type" => "lineage" }], "status" => "valid", "terms" => [{ "designation" => "esquema de aplicación UML", "normative_status" => "preferred", "type" => "expression" }] }
       end
 
       let(:expected_data) do
         {
-          "id" => "18e02fe9-e52d-50a0-84ac-9fccae815fbd",
-          "term" => "admitted term",
-          "termid" => "10",
+          "id" => "00061441-c9f2-5dd8-b28b-20dd94ad5ebf",
+          "term" => "UML application schema",
+          "termid" => "699",
+          "status" => "valid",
           "data" => {
-            "identifier" => "10",
+            "identifier" => "699",
             "localized_concepts" => localized_concepts,
           },
           "eng" => eng_concept,
           "ara" => ara_concept,
-          "dan" => dan_concept,
-          "ger" => ger_concept,
           "kor" => kor_concept,
           "rus" => rus_concept,
           "spa" => spa_concept,
-          "swe" => swe_concept,
         }
       end
 
@@ -509,7 +139,7 @@ RSpec.describe ::Jekyll::Geolexica::Glossary do
 
       it "should load data" do
         load_glossary
-        expect(subject["10"].data).to include(expected_data)
+        expect(subject["699"].data).to include(expected_data)
       end
     end
   end

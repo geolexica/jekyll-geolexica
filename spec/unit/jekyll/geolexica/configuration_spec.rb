@@ -26,13 +26,13 @@ RSpec.describe ::Jekyll::Geolexica::Configuration do
     subject { wrapper.method(:glossary_config) }
 
     it "returns a Geolexica configuration" do
-      fake_geolexica_config.replace({some: "entries"})
-      expect(subject.()).to eq(fake_geolexica_config)
+      fake_geolexica_config.replace({ some: "entries" })
+      expect(subject.call).to eq(fake_geolexica_config)
     end
 
     it "has some sensible defaults" do
-      expect(subject.()).to be_a(Hash)
-      expect(subject.()).not_to be_empty
+      expect(subject.call).to be_a(Hash)
+      expect(subject.call).not_to be_empty
     end
   end
 
@@ -40,12 +40,12 @@ RSpec.describe ::Jekyll::Geolexica::Configuration do
     subject { wrapper.method(:concepts_glob) }
 
     it "returns a configured glob path to concepts" do
-      fake_geolexica_config.replace({"concepts_glob" => "./some/glob/*"})
-      expect(subject.()).to eq(File.expand_path("#{fake_site_source}/some/glob/*"))
+      fake_geolexica_config.replace({ "concepts_glob" => "./some/glob/*" })
+      expect(subject.call).to eq(File.expand_path("#{fake_site_source}/some/glob/*"))
     end
 
     it "has some sensible defaults" do
-      expect(subject.()).to be_a(String) & match(/\*/)
+      expect(subject.call).to be_a(String) & match(/\*/)
     end
   end
 

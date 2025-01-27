@@ -2,8 +2,9 @@
 #
 
 RSpec.describe ::Jekyll::Geolexica::ConceptSerializer do
-  let(:concept_10) { load_concept_fixture("v1_glossary/concept-10.yaml") }
-  let(:serializer_10) { described_class.new(concept_10, fake_site) }
+  before(:each) do
+    allow_any_instance_of(::Jekyll::Geolexica::Glossary).to receive(:glossary_path).and_return(fixture_path("v2_glossary"))
+  end
 
   let(:fake_site) do
     instance_double(
@@ -23,11 +24,18 @@ RSpec.describe ::Jekyll::Geolexica::ConceptSerializer do
     YAML
   end
 
+  let(:concept_699) do
+    glossary = ::Jekyll::Geolexica::Glossary.new(fake_site)
+    glossary.send(:load_glossary)
+    glossary["699"]
+  end
+  let(:serializer_10) { described_class.new(concept_699, fake_site) }
+
   it "initializes with a concept and site" do
-    instance = described_class.new(concept_10, fake_site)
+    instance = described_class.new(concept_699, fake_site)
     expect(instance).to be_kind_of(described_class)
-    expect(instance.termid).to eq(concept_10.termid)
-    expect(instance.data).to eq(concept_10.data)
+    expect(instance.termid).to eq(concept_699.termid)
+    expect(instance.data).to eq(concept_699.data)
     expect(instance.site).to be(fake_site)
   end
 
@@ -39,11 +47,12 @@ RSpec.describe ::Jekyll::Geolexica::ConceptSerializer do
       expect(retval).to be_kind_of(String) & start_with("{")
       expect { JSON.parse(retval) }.not_to raise_error # be valid JSON
 
-      parsed_expectation = JSON.parse fixture("concept-10.json")
+      parsed_expectation = JSON.parse fixture("concept-699.json")
       parsed_retval = JSON.parse retval
 
       expect(parsed_retval.keys).to contain_exactly(
-        "term", "termid", "eng", "jpn", "pol", "unknown")
+        "term", "termid", "eng", "jpn", "pol", "unknown"
+      )
       expect(parsed_retval["term"]).to eq(parsed_expectation["term"])
       expect(parsed_retval["termid"]).to eq(parsed_expectation["termid"])
       expect(parsed_retval["eng"]).to eq(parsed_expectation["eng"])
@@ -62,10 +71,11 @@ RSpec.describe ::Jekyll::Geolexica::ConceptSerializer do
       parsed_retval = YAML.safe_load retval, permitted_classes: [Time]
 
       expect(parsed_retval.keys).to contain_exactly(
-        "term", "termid", "eng", "jpn", "pol", "unknown")
-      expect(parsed_retval["term"]).to eq(concept_10.data["term"])
-      expect(parsed_retval["termid"]).to eq(concept_10.data["termid"])
-      expect(parsed_retval["eng"]).to eq(concept_10.data["eng"])
+        "term", "termid", "eng", "jpn", "pol", "unknown"
+      )
+      expect(parsed_retval["term"]).to eq(concept_699.data["term"])
+      expect(parsed_retval["termid"]).to eq(concept_699.data["termid"])
+      expect(parsed_retval["eng"]).to eq(concept_699.data["eng"])
       expect(parsed_retval.fetch("unknown", :missing)).to be_nil
     end
   end

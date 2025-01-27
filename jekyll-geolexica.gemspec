@@ -19,15 +19,15 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
 
   spec.metadata      = {
-    "bug_tracker_uri"   => (github_url + "/issues"),
-    "homepage_uri"      => ribose_url,
-    "source_code_uri"   => github_url,
+    "bug_tracker_uri" => "#{github_url}/issues",
+    "homepage_uri" => ribose_url,
+    "source_code_uri" => github_url,
   }
 
-  spec.files         = all_files_in_git.reject do |f|
+  spec.files = all_files_in_git.reject do |f|
     [
       f.match(%r{^(test|spec|features|.github)/}),
-      f.match(%r{^\.}),
+      f.match(/^\./),
     ].any?
   end
 
@@ -35,20 +35,18 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "glossarist", "~> 2.0.7"
+  spec.add_runtime_dependency "glossarist", "~> 2.3.1"
+  spec.add_runtime_dependency "jbuilder"
   # Jekyll 4.1.0 adds some breaking changes which are reverted in 4.1.1.
   # I doubt we should be worried, but there is no good reason to allow them
   # either.
   # See: https://jekyllrb.com/news/2020/06/24/jekyll-4-1-1-released/
   spec.add_runtime_dependency "jekyll", ">= 3.8.5", "< 4.3", "!= 4.1.0"
-  spec.add_runtime_dependency "jbuilder"
 
   spec.add_runtime_dependency "jekyll-asciidoc"
-  # Pin logger to <= 1.5.3 due to incompatibility of logger 1.6.0 with Jekyll 4.3.2
-  spec.add_runtime_dependency "logger", "<= 1.5.3"
+  spec.add_runtime_dependency "plurimath"
   spec.add_runtime_dependency "relaton"
   spec.add_runtime_dependency "unitsml"
-  spec.add_runtime_dependency "plurimath"
 
   # Zeitwerk::Loader#push_dir supports :namespace argument from v. 2.4.
   spec.add_runtime_dependency "zeitwerk", "~> 2.4"
