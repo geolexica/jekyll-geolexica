@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "glossarist", "~> 2.3.1"
+  spec.add_runtime_dependency "glossarist", "~> 2.3"
   spec.add_runtime_dependency "jbuilder"
   # Jekyll 4.1.0 adds some breaking changes which are reverted in 4.1.1.
   # I doubt we should be worried, but there is no good reason to allow them
