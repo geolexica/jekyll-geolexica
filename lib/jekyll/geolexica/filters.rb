@@ -141,11 +141,13 @@ module Jekyll
 
       def images_metadata
         site = @context.registers[:site]
-        glossary_path = site.config["geolexica"]["glossary_path"]
-        return {} if glossary_path.nil? || glossary_path.empty?
+        site_config = site.config["geolexica"]
+        images_metadata_path = site_config["images_metadata_path"] ||
+          site_config["glossary_path"]
+        return {} if images_metadata_path.nil? || images_metadata_path.empty?
 
         @images_metadata ||= YAML.safe_load_file(
-          File.expand_path("#{glossary_path}/images_metadata.yaml",
+          File.expand_path("#{images_metadata_path}/images_metadata.yaml",
                            site.source),
           permitted_classes: [Time],
         )
