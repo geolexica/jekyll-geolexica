@@ -25,7 +25,10 @@
        {
          "origin": {
            "ref": "ISO 19136-1:2020",
-           "clause": "3.1.61",
+           "locality": {
+             "reference_from": "3.1.61",
+             "type": "clause"
+           },
            "link": "https://www.iso.org/standard/75676.html"
          },
          "type": "authoritative"
