@@ -33,17 +33,22 @@ module Jekyll
       end
 
       def images_metadata_path
-        glossary_path = glossary_config["glossary_path"]
-        return {} if glossary_path.nil? || glossary_path.empty?
+        images_metadata_path = glossary_config["images_metadata_path"] ||
+          glossary_config["glossary_path"]
 
-        File.expand_path("#{glossary_path}/images_metadata.yaml", site.source)
+        return {} if images_metadata_path.nil? || images_metadata_path.empty?
+
+        File.expand_path(
+          "#{images_metadata_path}/images_metadata.yaml", site.source
+        )
       end
 
       def bibliography_path
-        glossary_path = glossary_config["glossary_path"]
-        return nil if glossary_path.nil? || glossary_path.empty?
+        bibliography_path = glossary_config["bibliography_path"] ||
+          glossary_config["glossary_path"]
+        return nil if bibliography_path.nil? || bibliography_path.empty?
 
-        File.expand_path("#{glossary_path}/bibliography.yaml", site.source)
+        File.expand_path("#{bibliography_path}/bibliography.yaml", site.source)
       end
 
       def suggest_translation_url
