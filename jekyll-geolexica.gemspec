@@ -44,7 +44,10 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "jekyll", ">= 3.8.5", "< 4.3", "!= 4.1.0"
 
   spec.add_runtime_dependency "jekyll-asciidoc"
-  spec.add_runtime_dependency "plurimath"
+  # plurimath < 0.10.7 requires "mml/configuration", which mml >= 2.2 removed,
+  # so an unpinned plurimath resolves to a combo that fails to load. 0.10.7+
+  # requires "mml" and pins "mml ~> 2.3.6".
+  spec.add_runtime_dependency "plurimath", ">= 0.10.7"
   spec.add_runtime_dependency "relaton"
   spec.add_runtime_dependency "unitsml"
 
