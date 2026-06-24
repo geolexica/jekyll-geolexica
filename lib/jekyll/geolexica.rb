@@ -29,6 +29,7 @@ loader = Zeitwerk::Loader.new
 loader.tag = "jekyll-geolexica"
 loader.push_dir(File.join(__dir__, "geolexica"), namespace: Jekyll::Geolexica)
 loader.inflector = Zeitwerk::GemInflector.new(__FILE__)
+loader.inflector.inflect("concept_rdf" => "ConceptRDF")
 loader.setup
 
 # Jekyll-Geolexica must be loaded eagerly because Jekyll has no other way

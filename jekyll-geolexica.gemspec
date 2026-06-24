@@ -36,6 +36,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "glossarist", "~> 2.3"
+  spec.add_runtime_dependency "rdf", "~> 3.3"
+  spec.add_runtime_dependency "rdf-turtle", "~> 3.3"
+  spec.add_runtime_dependency "json-ld", "~> 3.3"
   spec.add_runtime_dependency "jbuilder"
   # Jekyll 4.1.0 adds some breaking changes which are reverted in 4.1.1.
   # I doubt we should be worried, but there is no good reason to allow them
@@ -54,5 +57,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 2.1"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "rake", ">= 10"
+  spec.add_development_dependency "rdf-isomorphic", "~> 3.3"
   spec.add_development_dependency "rspec", "~> 3.9"
 end

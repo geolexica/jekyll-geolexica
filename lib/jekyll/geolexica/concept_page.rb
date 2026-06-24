@@ -90,11 +90,15 @@ module Jekyll
         end
 
         def layout
-          "concept.jsonld"
+          nil
+        end
+
+        def content
+          ConceptRDF.new(concept, site).to_jsonld
         end
 
         def uses_liquid
-          true
+          false
         end
 
         def permalink
@@ -112,11 +116,15 @@ module Jekyll
         end
 
         def layout
-          "concept.ttl"
+          nil
+        end
+
+        def content
+          ConceptRDF.new(concept, site).to_ttl
         end
 
         def uses_liquid
-          true
+          false
         end
 
         def permalink
